@@ -1,6 +1,6 @@
 # Harvest Bench
 
-Harvest Bench is a benchmark for the validation of C library reimplementations.
+Harvest Bench is a benchmark that validates C library reimplementations.
 It contains real C libraries, their upstream test suites, and a runner that
 scores a reimplementation against those tests.
 
@@ -23,6 +23,7 @@ tests/            One directory per test program
   mujs/
   pcre2/
   zstd/
+  ...
 runner/           The runner: a Rust library and the harvest-bench CLI
 ```
 
@@ -111,7 +112,7 @@ the library under test ends the whole run and GoogleTest writes no report.
 - Network access on the first configure, to fetch the pinned GoogleTest. For
   offline builds, pre-populate the source once and pass
   `-DFETCHCONTENT_SOURCE_DIR_GOOGLETEST=/path/to/googletest-1.17.0`.
-- Rust 1.75 or newer for the runner.
+- Rust 1.85 or newer for the runner.
 - Linux. The aggregate suites use `fork`, and the runner assumes ELF shared
   libraries.
 

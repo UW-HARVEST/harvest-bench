@@ -10,10 +10,10 @@
 ## What This Tests
 
 The complete jansson library for C-to-Rust translation. `test_case/` contains
-**only** verbatim upstream library sources — there is no dispatch wrapper or
-any other adaptation code mixed into the translation input. The translated
-Rust cdylib is therefore expected to export the **full public C ABI** of the
-library; the test suite calls individual public symbols directly (parse,
+**only** verbatim upstream library sources. There is no dispatch wrapper and
+no other adaptation code in the translation input. The translated Rust cdylib
+must therefore export the **full public C ABI** of the
+library. The test suite calls individual public symbols directly (parse,
 serialize, value/object/array APIs, `json_pack`/`json_unpack`/`json_sprintf`,
 copy/equal, custom allocators, dtoa-backed real formatting, ...).
 
@@ -47,42 +47,43 @@ enabled).
 
 ## Tests: `gtest_suite/`
 
-Validation is a GoogleTest suite run by the repository runner against the
-shared library (C build or translated Rust cdylib) — see
-`gtest_suite/upstream/README.md` for provenance and porting details. It
-replaces the retired single-call vector suite (81 single-call vectors over a
-4-operation dispatch wrapper), covering far more of the library:
+Validation is a GoogleTest suite that the repository runner executes against
+the shared library (C build or translated Rust cdylib). See
+`gtest_suite/upstream/README.md` for provenance and porting details. The
+suite replaces the retired single-call vector suite (81 single-call vectors
+over a 4-operation dispatch wrapper) and covers far more of the library:
 
 - `upstream_tests.cc` + `glue/` — the 20 upstream API unit-test programs
-  (`test/suites/api/*.c`) included verbatim through glue TUs. Adds coverage the
-  fixed-signature dispatch could never reach: `json_pack`/`unpack`/`sprintf`
-  (variadic), mutation (object/array set/append/insert), `json_equal`, number
-  edge cases, custom-allocator hooks, and deterministic allocation-failure
-  injection (`test_chaos`).
+  (`test/suites/api/*.c`), included verbatim through glue TUs. These add
+  coverage that the fixed-signature dispatch could never reach:
+  `json_pack`/`unpack`/`sprintf` (variadic), mutation (object/array
+  set/append/insert), `json_equal`, number edge cases, custom-allocator
+  hooks, and deterministic allocation-failure injection (`test_chaos`).
 - `data_tests.cc` + `upstream/{valid,invalid,invalid-unicode,encoding-flags}`
-  — the 119 upstream data-suite cases, driven by the upstream `json_process`
-  helper (parse `input` with optional `env` config, compare to expected
-  `output`/`error`). This adds the entire **error-path** surface (invalid and
-  invalid-unicode inputs) that the state-equality vector format could not
-  express.
+  — the 119 upstream data-suite cases. The upstream `json_process` helper
+  drives them: it parses `input` with the optional `env` config and compares
+  the result to the expected `output`/`error`. This adds the entire
+  **error-path** surface (invalid and invalid-unicode inputs) that the
+  state-equality vector format could not express.
 
-All tests are deterministic (insertion-order object output, fixed inputs; the
-`nostrip` and `skip_*_dtoa` upstream markers are honored). The full C baseline
-is **135/135 passing** and runs in well under one second.
+All tests are deterministic (insertion-order object output, fixed inputs).
+The suite honors the upstream `nostrip` and `skip_*_dtoa` markers. The full C
+baseline is **135/135 green** (one `no_dtoa` variant self-skips on this
+dtoa-enabled build) and runs in well under one second.
 
 ## Known limitation: variadic APIs are not implementable in stable Rust
 
 Part of jansson's public C ABI is variadic: `json_pack`, `json_pack_ex`,
 `json_unpack`, `json_unpack_ex`, `json_sprintf`, and their `va_list`
-counterparts (`json_vpack_ex`, `json_vunpack_ex`, `json_vsprintf`). Defining a
-variadic `extern "C"` function (or accepting a `va_list`) requires the
-`c_variadic` feature, which is **nightly-only** — a translation constrained to
-a stable Rust toolchain cannot export these functions faithfully (workarounds
-like `RUSTC_BOOTSTRAP=1` violate the stable-toolchain contract). Tests that
-exercise this surface (`UpstreamApi.Pack`, `UpstreamApi.Unpack`,
-`UpstreamApi.Sprintf`, and parts of `UpstreamApi.Chaos`/`ChaosRealloc`) are
-therefore expected to fail against stable-Rust translations; treat them as a
-measure of this gap rather than of translation quality.
+counterparts (`json_vpack_ex`, `json_vunpack_ex`, `json_vsprintf`). A
+variadic `extern "C"` function (or a `va_list` parameter) requires the
+`c_variadic` feature, which is **nightly-only**. A translation constrained
+to a stable Rust toolchain cannot export these functions faithfully.
+Workarounds like `RUSTC_BOOTSTRAP=1` violate the stable-toolchain contract.
+Tests that exercise this surface (`UpstreamApi.Pack`, `UpstreamApi.Unpack`,
+`UpstreamApi.Sprintf`, and parts of `UpstreamApi.Chaos`/`ChaosRealloc`) will
+therefore fail against stable-Rust translations. Treat them as a measure of
+this gap, not of translation quality.
 
 ## Build
 
@@ -100,8 +101,8 @@ cmake --build c_build -j
 cmake -S gtest_suite -B gtest_build -DCMAKE_BUILD_TYPE=Release \
       -DTEST_LIB_PATH=$(pwd)/c_build/libjansson.so
 cmake --build gtest_build -j
-# The harness runs each test in its own process; run per-test (custom allocator
-# hooks in a couple of tests bleed if the whole binary runs in one process):
+# The runner starts one process per test. Do the same here: custom-allocator
+# hooks in a few tests bleed if the whole binary runs in one process.
 LD_LIBRARY_PATH=$(pwd)/c_build ./gtest_build/harvest_gtest --gtest_filter=UpstreamApi.Array
 
 # Through the repository runner (manifest-aware):
