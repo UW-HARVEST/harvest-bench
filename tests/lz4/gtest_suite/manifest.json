@@ -1,0 +1,39 @@
+{
+  "version": 1,
+  "default_factor": 3.0,
+  "min_seconds": 10,
+  "invocations": [
+    {
+      "mode": "suite",
+      "filter": "UpstreamFuzzerUnitTests.RecordHcClevelDefault:UpstreamFuzzer/UnitTestsHcClevelDefault.*",
+      "budget": 0.2,
+      "note": "one FUZ_unitTests(HC default) recording + per-scenario reads"
+    },
+    {
+      "mode": "suite",
+      "filter": "UpstreamFuzzerUnitTests.RecordHcClevelOptMin:UpstreamFuzzer/UnitTestsHcClevelOptMin.*",
+      "budget": 0.2,
+      "note": "one FUZ_unitTests(HC opt-min) recording + per-scenario reads"
+    },
+    {
+      "mode": "case",
+      "filter": "UpstreamFuzzer.FuzzLoopSeed42",
+      "budget": 1.8
+    },
+    {
+      "mode": "case",
+      "filter": "UpstreamFrametest.*",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "UpstreamDecompressPartial.*",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "AllLevels/*",
+      "budget": 0.1
+    }
+  ]
+}

@@ -1,0 +1,69 @@
+{
+  "version": 1,
+  "default_factor": 3.0,
+  "min_seconds": 10,
+  "invocations": [
+    {
+      "mode": "suite",
+      "filter": "UpstreamUnitTestRecording.FuzzerBasic:UpstreamFuzzer/FuzzerBasic.*",
+      "budget": 4.0,
+      "note": "one fuzzer basicUnitTests recording + per-scenario reads"
+    },
+    {
+      "mode": "suite",
+      "filter": "UpstreamUnitTestRecording.ZstreamBasic:UpstreamZstream/ZstreamBasic.*",
+      "budget": 2.7,
+      "note": "one zstreamtest basicUnitTests recording + per-scenario reads"
+    },
+    {
+      "mode": "case",
+      "filter": "UpstreamBigDict.RoundTrip",
+      "budget": 84.0
+    },
+    {
+      "mode": "case",
+      "filter": "UpstreamLargeDictionary.StreamRoundTrip",
+      "budget": 81.3
+    },
+    {
+      "mode": "case",
+      "filter": "UpstreamFuzzer.LongUnitTests",
+      "budget": 73.4
+    },
+    {
+      "mode": "case",
+      "filter": "UpstreamZstream.FuzzLoopOldApiSeed335",
+      "budget": 2.8
+    },
+    {
+      "mode": "case",
+      "filter": "UpstreamLongMatch.Basic",
+      "budget": 1.0
+    },
+    {
+      "mode": "case",
+      "filter": "UpstreamZstream.FuzzLoopNewApiSeed335",
+      "budget": 0.8
+    },
+    {
+      "mode": "case",
+      "filter": "UpstreamFuzzer.FuzzLoopSeed335",
+      "budget": 0.5
+    },
+    {
+      "mode": "case",
+      "filter": "UpstreamInvalidDictionaries.Rejected",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "GoldenDictionary.*",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "AllFiles/*",
+      "budget": 0.1
+    }
+  ]
+}

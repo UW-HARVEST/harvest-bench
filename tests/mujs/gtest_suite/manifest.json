@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "default_factor": 3.0,
+  "min_seconds": 10,
+  "invocations": [
+    {
+      "mode": "case",
+      "filter": "Test262Vectors.*",
+      "budget": 0.2
+    }
+  ]
+}

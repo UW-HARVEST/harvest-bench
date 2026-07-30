@@ -1,0 +1,6 @@
+# Rust build artifacts
+runner/target/
+# Per-test build trees created by `harvest-bench verify` and manual builds
+tests/*/build/
+tests/*/c_build/
+tests/*/gtest_build/
