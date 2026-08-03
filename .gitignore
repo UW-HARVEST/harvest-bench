@@ -4,3 +4,4 @@ runner/target/
 tests/*/build/
 tests/*/c_build/
 tests/*/gtest_build/
+*.res
