@@ -1,0 +1,27 @@
+{
+  "default_factor": 3.0,
+  "invocations": [
+    {
+      "budget": 0.4,
+      "filter": "Libpng.PngvalidStandard",
+      "mode": "case"
+    },
+    {
+      "budget": 1.4,
+      "filter": "Libpng.PngvalidSize",
+      "mode": "case"
+    },
+    {
+      "budget": 1.3,
+      "filter": "Libpng.PngvalidTransform",
+      "mode": "case"
+    },
+    {
+      "budget": 4.0,
+      "filter": "Libpng.PngvalidGamma",
+      "mode": "case"
+    }
+  ],
+  "min_seconds": 10,
+  "version": 1
+}
