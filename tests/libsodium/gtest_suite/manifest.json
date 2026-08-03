@@ -1,0 +1,528 @@
+{
+  "default_factor": 3.0,
+  "invocations": [
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.aead_aegis128l_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.aead_aegis256_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.aead_aes256gcm_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.aead_aes256gcm2_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.aead_chacha20poly1305_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.aead_chacha20poly13052_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.aead_xchacha20poly1305_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.auth_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.auth2_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.auth3_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.auth5_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.auth6_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.auth7_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.box_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.box2_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.box7_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.box8_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.box_easy_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.box_easy2_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.box_seal_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.box_seed_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.chacha20_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.codecs_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.codecs2_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.codecs3_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.core1_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.core2_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.core3_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.core4_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.core5_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.core6_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.core_ed25519_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.core_ed25519_h2c_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.core_keccak1600_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.core_ristretto255_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.core_ristretto255_h2c_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.ed25519_convert_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.generichash_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.generichash2_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.generichash3_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.hash_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.hash3_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.hash_sha3256_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.hash_sha3512_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.ipcrypt_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.kdf_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.kdf_hkdf_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.kdf_hkdf2_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.kdf_hkdf3_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.kdf_hkdf4_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.kem_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.kem_mlkem768_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.kem_xwing_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.keygen_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.kx_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.metamorphic_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.misuse_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.onetimeauth_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.onetimeauth2_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.onetimeauth7_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.pwhash_argon2i_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.pwhash_argon2id_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.pwhash_argon2id2_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.pwhash_scrypt_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.pwhash_scrypt_ll_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.randombytes_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.scalarmult_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.scalarmult2_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.scalarmult5_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.scalarmult6_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.scalarmult7_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.scalarmult8_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.scalarmult_ed25519_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.scalarmult_ristretto255_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.secretbox_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.secretbox2_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.secretbox7_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.secretbox8_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.secretbox_easy_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.secretbox_easy2_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.secretstream_xchacha20poly1305_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.shorthash_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.sign_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.sign2_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.siphashx24_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.sodium_core_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.sodium_utils_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.sodium_utils2_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.sodium_utils3_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.sodium_utils4_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.sodium_version_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.stream_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.stream2_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.stream3_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.stream4_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.stream5_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.stream6_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.verify1_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.xchacha20_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.xof2_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.xof_shake128_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.xof_shake256_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.xof_turboshake128_",
+      "mode": "case"
+    },
+    {
+      "budget": 0.1,
+      "filter": "Libsodium.xof_turboshake256_",
+      "mode": "case"
+    }
+  ],
+  "min_seconds": 10,
+  "version": 1,
+  "note": "Every libsodium upstream driver uses cmptest.h, which relies on file-scope state (fp_res, guard page, hardcoded buffers) and writes a <name>.res scratch file. Drivers must therefore each run in their own process (mode:case). Do NOT group them into suite-mode entries."
+}
