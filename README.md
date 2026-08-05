@@ -55,8 +55,8 @@ invocations that keep large suites fast.
 Build the runner once:
 
 ```bash
-cargo build --release --manifest-path runner/Cargo.toml
-export PATH="$PWD/runner/target/release:$PATH"
+cargo build --release
+export PATH="$PWD/target/release:$PATH"
 ```
 
 To check that a test passes against its reference C library:

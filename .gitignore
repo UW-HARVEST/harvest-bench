@@ -1,4 +1,5 @@
 # Rust build artifacts
+/target/
 runner/target/
 # Per-test build trees created by `harvest-bench verify` and manual builds
 tests/*/build/
