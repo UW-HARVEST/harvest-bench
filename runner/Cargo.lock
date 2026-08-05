@@ -103,6 +103,7 @@ name = "harvest-bench"
 version = "0.1.0"
 dependencies = [
  "clap",
+ "libc",
  "serde",
  "serde_json",
  "wait-timeout",

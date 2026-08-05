@@ -28,7 +28,8 @@
 use std::fs;
 use std::path::{Path, PathBuf};
 use std::process::{Command, Output, Stdio};
-use std::time::Duration;
+use std::sync::mpsc;
+use std::time::{Duration, Instant};
 use wait_timeout::ChildExt;
 
 pub type Error = Box<dyn std::error::Error + Send + Sync>;
@@ -422,17 +423,24 @@ pub fn list_gtest_tests(gtest_bin: &Path, ld_library_path: &str) -> Result<Vec<S
 
 /// Spawns the gtest binary with the given extra args and a hard deadline.
 ///
+/// The child gets its own process group so the timeout kill reaps its ENTIRE
+/// tree: suites fork() helper children (pcre2test runs, scenario recorders),
+/// and killing only the direct child leaves a looping grandchild alive —
+/// spinning at 100% CPU and holding the inherited output pipes open forever.
+///
 /// Both output streams are drained on reader threads WHILE the child runs: a
 /// large suite prints more than a pipe buffer holds, and a child blocked on a
-/// full pipe never exits and would be killed as a spurious timeout.
+/// full pipe never exits and would be killed as a spurious timeout. The drain
+/// is deadline-bounded — the runner's liveness must never depend on the
+/// tested code releasing its descriptors.
 fn run_gtest_process(
     gtest_bin: &Path,
     ld_library_path: &str,
     args: &[String],
     timeout: Duration,
 ) -> Result<Output> {
-    let mut child = Command::new(gtest_bin)
-        .args(args)
+    let mut cmd = Command::new(gtest_bin);
+    cmd.args(args)
         .env(LD_LIBRARY_PATH_ENV, ld_library_path)
         .env(
             "HARVEST_TEST_SOFT_TIMEOUT_SECS",
@@ -440,59 +448,115 @@ fn run_gtest_process(
         )
         .stdin(Stdio::null())
         .stdout(Stdio::piped())
-        .stderr(Stdio::piped())
+        .stderr(Stdio::piped());
+    #[cfg(unix)]
+    {
+        use std::os::unix::process::CommandExt;
+        cmd.process_group(0);
+    }
+    let mut child = cmd
         .spawn()
         .map_err(|e| format!("failed to spawn gtest binary: {}", e))?;
+    let pid = child.id();
 
-    let mut stdout_pipe = child.stdout.take();
-    let mut stderr_pipe = child.stderr.take();
-    let stdout_thread = std::thread::spawn(move || {
-        let mut buf = Vec::new();
-        if let Some(p) = stdout_pipe.as_mut() {
-            use std::io::Read;
-            let _ = p.read_to_end(&mut buf);
-        }
-        buf
-    });
-    let stderr_thread = std::thread::spawn(move || {
-        let mut buf = Vec::new();
-        if let Some(p) = stderr_pipe.as_mut() {
-            use std::io::Read;
-            let _ = p.read_to_end(&mut buf);
-        }
-        buf
-    });
+    let stdout_rx = spawn_pipe_drain(child.stdout.take());
+    let stderr_rx = spawn_pipe_drain(child.stderr.take());
 
-    match child.wait_timeout(timeout + Duration::from_secs(KILL_GRACE_SECS)) {
-        Ok(Some(status)) => {
-            let stdout = stdout_thread.join().unwrap_or_default();
-            let stderr = stderr_thread.join().unwrap_or_default();
-            Ok(Output {
-                status,
-                stdout,
-                stderr,
-            })
+    let wait_result = child.wait_timeout(timeout + Duration::from_secs(KILL_GRACE_SECS));
+    let timed_out = matches!(wait_result, Ok(None));
+    if timed_out {
+        kill_process_group(pid);
+        let _ = child.kill();
+    }
+    let status = child.wait();
+    // Reap stray descendants unconditionally, even after a clean exit: a
+    // fork()ed grandchild that outlived the child would otherwise hold the
+    // pipes open. Data already written survives the kill, so nothing drained
+    // so far is lost.
+    kill_process_group(pid);
+    let deadline = Instant::now() + Duration::from_secs(KILL_GRACE_SECS);
+    let stdout = collect_drained(stdout_rx, deadline);
+    let stderr = collect_drained(stderr_rx, deadline);
+
+    if timed_out {
+        return Err(format!(
+            "invocation exceeded its {}s budget (killed {}s later)",
+            timeout.as_secs(),
+            KILL_GRACE_SECS
+        )
+        .into());
+    }
+    match (wait_result, status) {
+        (Ok(Some(_)), Ok(status)) | (_, Ok(status)) => Ok(Output {
+            status,
+            stdout,
+            stderr,
+        }),
+        (_, Err(e)) => Err(format!("error waiting for gtest: {}", e).into()),
+    }
+}
+
+/// SIGKILLs the child's whole process group (the child was spawned as its
+/// own group leader, so the group id is its pid). ESRCH — everything already
+/// gone — is the common, fine case.
+#[cfg(unix)]
+fn kill_process_group(pid: u32) {
+    unsafe {
+        libc::kill(-(pid as libc::pid_t), libc::SIGKILL);
+    }
+}
+
+#[cfg(not(unix))]
+fn kill_process_group(_pid: u32) {}
+
+/// Streams a pipe through a channel in chunks so the collector can both see
+/// partial output and stop waiting at a deadline. The thread exits on EOF;
+/// if a stray write-end holder somehow survives the process-group kill, the
+/// thread leaks rather than wedging the runner.
+fn spawn_pipe_drain(
+    pipe: Option<impl std::io::Read + Send + 'static>,
+) -> mpsc::Receiver<Vec<u8>> {
+    let (tx, rx) = mpsc::channel();
+    std::thread::spawn(move || {
+        let Some(mut pipe) = pipe else { return };
+        let mut buf = [0u8; 65536];
+        loop {
+            match pipe.read(&mut buf) {
+                Ok(0) | Err(_) => break,
+                Ok(n) => {
+                    if tx.send(buf[..n].to_vec()).is_err() {
+                        break;
+                    }
+                }
+            }
         }
-        Ok(None) => {
-            let _ = child.kill();
-            let _ = child.wait();
-            let _ = stdout_thread.join();
-            let _ = stderr_thread.join();
-            Err(format!(
-                "invocation exceeded its {}s budget (killed {}s later)",
-                timeout.as_secs(),
-                KILL_GRACE_SECS
-            )
-            .into())
+    });
+    rx
+}
+
+/// Collects everything a drain thread has streamed, waiting at most until
+/// `deadline` for the pipe to reach EOF.
+fn collect_drained(rx: mpsc::Receiver<Vec<u8>>, deadline: Instant) -> Vec<u8> {
+    let mut out = Vec::new();
+    loop {
+        match rx.try_recv() {
+            Ok(chunk) => {
+                out.extend_from_slice(&chunk);
+                continue;
+            }
+            Err(mpsc::TryRecvError::Disconnected) => break,
+            Err(mpsc::TryRecvError::Empty) => {}
         }
-        Err(e) => {
-            let _ = child.kill();
-            let _ = child.wait();
-            let _ = stdout_thread.join();
-            let _ = stderr_thread.join();
-            Err(format!("error waiting for gtest: {}", e).into())
+        let left = deadline.saturating_duration_since(Instant::now());
+        if left.is_zero() {
+            break;
+        }
+        match rx.recv_timeout(left) {
+            Ok(chunk) => out.extend_from_slice(&chunk),
+            Err(_) => break, // EOF (disconnected) or deadline reached
         }
     }
+    out
 }
 
 // ---------------------------------------------------------------------------
