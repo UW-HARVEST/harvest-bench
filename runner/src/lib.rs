@@ -54,7 +54,7 @@ const LD_LIBRARY_PATH_ENV: &str = "LD_LIBRARY_PATH";
 // Manifest
 
 /// How a manifest entry is executed.
-#[derive(serde::Deserialize, Clone, Copy, PartialEq, Eq, Debug)]
+#[derive(serde::Deserialize, serde::Serialize, Clone, Copy, PartialEq, Eq, Debug)]
 #[serde(rename_all = "lowercase")]
 pub enum InvocationMode {
     /// One process per matched test; the budget applies to each test.
@@ -170,21 +170,22 @@ pub fn filter_matches(filter: &str, name: &str) -> bool {
 // ---------------------------------------------------------------------------
 // Execution planning
 
-/// One `mode: "suite"` process invocation with its assigned tests.
-#[derive(Debug)]
-pub struct Batch {
+/// One planned process-level invocation: a `suite` batch with its assigned
+/// tests, or a single `case` test.
+#[derive(Debug, Clone, serde::Serialize)]
+pub struct PlannedInvocation {
+    pub mode: InvocationMode,
     pub filter: String,
+    pub tests: Vec<String>,
     pub timeout_secs: u64,
     pub note: Option<String>,
-    pub tests: Vec<String>,
 }
 
-/// The full process-level plan for one suite run.
-#[derive(Debug, Default)]
+/// The full process-level plan for one suite run: batches first (manifest
+/// order), then per-case invocations (test listing order).
+#[derive(Debug, Default, serde::Serialize)]
 pub struct ExecutionPlan {
-    pub batches: Vec<Batch>,
-    /// (test name, timeout seconds)
-    pub singles: Vec<(String, u64)>,
+    pub invocations: Vec<PlannedInvocation>,
 }
 
 /// Assigns every listed test to the first matching manifest entry (manifest
@@ -194,16 +195,25 @@ pub fn build_execution_plan(
     manifest: Option<&Manifest>,
     fallback_timeout: u64,
 ) -> ExecutionPlan {
-    let mut plan = ExecutionPlan::default();
+    let case = |name: &String, timeout_secs: u64, note: Option<String>| PlannedInvocation {
+        mode: InvocationMode::Case,
+        filter: name.clone(),
+        tests: vec![name.clone()],
+        timeout_secs,
+        note,
+    };
+
     let Some(manifest) = manifest else {
-        plan.singles = test_names
-            .iter()
-            .map(|n| (n.clone(), fallback_timeout))
-            .collect();
-        return plan;
+        return ExecutionPlan {
+            invocations: test_names
+                .iter()
+                .map(|n| case(n, fallback_timeout, None))
+                .collect(),
+        };
     };
 
     let mut batch_slots: Vec<Vec<String>> = vec![Vec::new(); manifest.invocations.len()];
+    let mut cases = Vec::new();
     for name in test_names {
         match manifest
             .invocations
@@ -214,65 +224,197 @@ pub fn build_execution_plan(
                 let spec = &manifest.invocations[i];
                 match spec.mode {
                     InvocationMode::Suite => batch_slots[i].push(name.clone()),
-                    InvocationMode::Case => plan
-                        .singles
-                        .push((name.clone(), manifest.timeout_secs(spec.budget))),
+                    InvocationMode::Case => {
+                        cases.push(case(name, manifest.timeout_secs(spec.budget), spec.note.clone()))
+                    }
                 }
             }
-            None => plan.singles.push((name.clone(), fallback_timeout)),
+            None => cases.push(case(name, fallback_timeout, None)),
         }
     }
 
+    let mut invocations = Vec::new();
     for (i, tests) in batch_slots.into_iter().enumerate() {
         if tests.is_empty() {
             continue;
         }
         let spec = &manifest.invocations[i];
-        plan.batches.push(Batch {
+        invocations.push(PlannedInvocation {
+            mode: InvocationMode::Suite,
             filter: spec.filter.clone(),
+            tests,
             timeout_secs: manifest.timeout_secs(spec.budget),
             note: spec.note.clone(),
-            tests,
         });
     }
-    plan
+    invocations.extend(cases);
+    ExecutionPlan { invocations }
 }
 
 // ---------------------------------------------------------------------------
 // Verdicts
 
+/// Why a test failed. Structured so consumers classify without grepping
+/// failure prose; the human-readable detail stays in `TestVerdict::failure`.
+#[non_exhaustive]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, serde::Serialize)]
+#[serde(rename_all = "snake_case")]
+pub enum FailureCause {
+    /// The gtest JSON report recorded assertion failure(s).
+    Assertion,
+    /// A per-case process exited nonzero without crashing.
+    NonZeroExit { code: Option<i32> },
+    /// The process died on a signal (segfault, abort, ...).
+    Signal { signal: i32 },
+    /// The runner killed the invocation at its time budget.
+    TimedOut { budget_secs: u64 },
+    /// The batch process died without writing a JSON report; nothing is
+    /// known about this test beyond "its invocation did not survive".
+    NoReport,
+    /// The report exists but this planned test is absent from it (the run
+    /// ended early).
+    MissingVerdict,
+    /// The test binary could not be spawned at all.
+    SpawnFailed,
+}
+
+impl FailureCause {
+    /// Short stable label, for compact displays.
+    pub fn label(&self) -> &'static str {
+        match self {
+            FailureCause::Assertion => "assertion",
+            FailureCause::NonZeroExit { .. } => "exit",
+            FailureCause::Signal { .. } => "signal",
+            FailureCause::TimedOut { .. } => "timeout",
+            FailureCause::NoReport => "no-report",
+            FailureCause::MissingVerdict => "missing",
+            FailureCause::SpawnFailed => "spawn",
+        }
+    }
+}
+
 /// Outcome of one gtest test.
+#[derive(Debug, Clone, Copy, PartialEq, serde::Serialize)]
+#[serde(rename_all = "snake_case")]
+pub enum TestStatus {
+    Passed,
+    Skipped,
+    Failed(FailureCause),
+}
+
+/// How an invocation's process ended.
+#[non_exhaustive]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, serde::Serialize)]
+#[serde(rename_all = "snake_case")]
+pub enum ExitKind {
+    Clean { code: Option<i32> },
+    Signaled { signal: i32 },
+    TimedOut { budget_secs: u64 },
+    SpawnFailed,
+}
+
+/// Verdict for one gtest test.
 #[derive(Debug, Clone, serde::Serialize)]
 pub struct TestVerdict {
     pub name: String,
-    pub passed: bool,
-    pub skipped: bool,
+    pub status: TestStatus,
     /// Failure detail (assertion text, crash/timeout reason). Empty on pass.
     #[serde(skip_serializing_if = "String::is_empty")]
     pub failure: String,
     /// Test runtime in seconds, when the gtest JSON report supplied it.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub time_secs: Option<f64>,
+    /// Index into `RunReport::invocations` of the process run that produced
+    /// this verdict.
+    pub invocation: usize,
 }
 
-/// Outcome of a whole suite run.
+impl TestVerdict {
+    pub fn passed(&self) -> bool {
+        matches!(self.status, TestStatus::Passed | TestStatus::Skipped)
+    }
+    pub fn skipped(&self) -> bool {
+        matches!(self.status, TestStatus::Skipped)
+    }
+    pub fn failed(&self) -> bool {
+        matches!(self.status, TestStatus::Failed(_))
+    }
+    pub fn cause(&self) -> Option<FailureCause> {
+        match self.status {
+            TestStatus::Failed(c) => Some(c),
+            _ => None,
+        }
+    }
+}
+
+/// Record of what one process-level invocation DID — only the facts the run
+/// produced. What was *planned* (mode, filter, tests, timeout, note) is not
+/// repeated here: outcomes are index-aligned with
+/// `RunReport::plan.invocations`.
+#[derive(Debug, Clone, serde::Serialize)]
+pub struct InvocationOutcome {
+    pub exit: ExitKind,
+    pub duration_secs: f64,
+    /// Tail of the process's stderr; kept only when the invocation died
+    /// abnormally (crash/timeout/no report).
+    #[serde(skip_serializing_if = "String::is_empty")]
+    pub stderr_tail: String,
+    /// Verdict counts for this invocation (derivable from the verdicts;
+    /// carried so event-time displays need not scan).
+    pub passed: usize,
+    pub skipped: usize,
+    pub total: usize,
+}
+
+/// Outcome of a whole suite run: the static report. Accumulated from the
+/// same events the streaming API emits; `Display` renders the default
+/// human-readable summary.
+///
+/// `plan` is the executed plan itself (including each invocation's full test
+/// list); `outcomes[i]` records what running `plan.invocations[i]` did.
 #[derive(Debug, Default, serde::Serialize)]
 pub struct RunReport {
+    pub plan: ExecutionPlan,
+    pub outcomes: Vec<InvocationOutcome>,
     pub verdicts: Vec<TestVerdict>,
 }
 
 impl RunReport {
     pub fn passed(&self) -> usize {
-        self.verdicts.iter().filter(|v| v.passed && !v.skipped).count()
+        self.verdicts
+            .iter()
+            .filter(|v| matches!(v.status, TestStatus::Passed))
+            .count()
     }
     pub fn skipped(&self) -> usize {
-        self.verdicts.iter().filter(|v| v.skipped).count()
+        self.verdicts.iter().filter(|v| v.skipped()).count()
     }
     pub fn failed(&self) -> usize {
-        self.verdicts.iter().filter(|v| !v.passed).count()
+        self.verdicts.iter().filter(|v| v.failed()).count()
     }
     pub fn all_passed(&self) -> bool {
         self.failed() == 0
+    }
+}
+
+impl std::fmt::Display for RunReport {
+    /// The default static rendering: one summary line, then one line per
+    /// failure with its structured cause and the first line of detail.
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        writeln!(
+            f,
+            "total: {} tests, {} passed, {} failed, {} skipped",
+            self.verdicts.len(),
+            self.passed(),
+            self.failed(),
+            self.skipped()
+        )?;
+        for v in self.verdicts.iter().filter(|v| v.failed()) {
+            let cause = v.cause().map(|c| c.label()).unwrap_or("failed");
+            let first = v.failure.lines().next().unwrap_or("");
+            writeln!(f, "  FAIL [{}] {} - {}", cause, v.name, first)?;
+        }
+        Ok(())
     }
 }
 
@@ -421,6 +563,15 @@ pub fn list_gtest_tests(gtest_bin: &Path, ld_library_path: &str) -> Result<Vec<S
     Ok(tests)
 }
 
+/// A finished gtest process invocation, with a structured exit kind (never a
+/// stringly-typed error: a spawn failure or timeout is data, not an `Err`).
+struct ProcessRun {
+    exit: ExitKind,
+    stdout: Vec<u8>,
+    stderr: Vec<u8>,
+    duration_secs: f64,
+}
+
 /// Spawns the gtest binary with the given extra args and a hard deadline.
 ///
 /// The child gets its own process group so the timeout kill reaps its ENTIRE
@@ -438,7 +589,8 @@ fn run_gtest_process(
     ld_library_path: &str,
     args: &[String],
     timeout: Duration,
-) -> Result<Output> {
+) -> ProcessRun {
+    let started = Instant::now();
     let mut cmd = Command::new(gtest_bin);
     cmd.args(args)
         .env(LD_LIBRARY_PATH_ENV, ld_library_path)
@@ -454,9 +606,17 @@ fn run_gtest_process(
         use std::os::unix::process::CommandExt;
         cmd.process_group(0);
     }
-    let mut child = cmd
-        .spawn()
-        .map_err(|e| format!("failed to spawn gtest binary: {}", e))?;
+    let mut child = match cmd.spawn() {
+        Ok(child) => child,
+        Err(e) => {
+            return ProcessRun {
+                exit: ExitKind::SpawnFailed,
+                stdout: Vec::new(),
+                stderr: format!("failed to spawn gtest binary: {}", e).into_bytes(),
+                duration_secs: started.elapsed().as_secs_f64(),
+            }
+        }
+    };
     let pid = child.id();
 
     let stdout_rx = spawn_pipe_drain(child.stdout.take());
@@ -477,22 +637,53 @@ fn run_gtest_process(
     let deadline = Instant::now() + Duration::from_secs(KILL_GRACE_SECS);
     let stdout = collect_drained(stdout_rx, deadline);
     let stderr = collect_drained(stderr_rx, deadline);
+    let duration_secs = started.elapsed().as_secs_f64();
 
-    if timed_out {
-        return Err(format!(
-            "invocation exceeded its {}s budget (killed {}s later)",
-            timeout.as_secs(),
-            KILL_GRACE_SECS
-        )
-        .into());
+    let exit = if timed_out {
+        ExitKind::TimedOut {
+            budget_secs: timeout.as_secs(),
+        }
+    } else {
+        match status {
+            Ok(status) => {
+                #[cfg(unix)]
+                {
+                    use std::os::unix::process::ExitStatusExt;
+                    match status.signal() {
+                        Some(signal) => ExitKind::Signaled { signal },
+                        None => ExitKind::Clean {
+                            code: status.code(),
+                        },
+                    }
+                }
+                #[cfg(not(unix))]
+                ExitKind::Clean {
+                    code: status.code(),
+                }
+            }
+            Err(_) => ExitKind::SpawnFailed,
+        }
+    };
+    ProcessRun {
+        exit,
+        stdout,
+        stderr,
+        duration_secs,
     }
-    match (wait_result, status) {
-        (Ok(Some(_)), Ok(status)) | (_, Ok(status)) => Ok(Output {
-            status,
-            stdout,
-            stderr,
-        }),
-        (_, Err(e)) => Err(format!("error waiting for gtest: {}", e).into()),
+}
+
+impl ExitKind {
+    /// One-line description used in failure prose.
+    fn describe(&self) -> String {
+        match self {
+            ExitKind::Clean { code } => format!("process exited with {:?}", code),
+            ExitKind::Signaled { signal } => format!("process died on signal {}", signal),
+            ExitKind::TimedOut { budget_secs } => format!(
+                "invocation exceeded its {}s budget (killed {}s later)",
+                budget_secs, KILL_GRACE_SECS
+            ),
+            ExitKind::SpawnFailed => "could not spawn the test binary".to_string(),
+        }
     }
 }
 
@@ -629,30 +820,162 @@ fn parse_gtest_json_report(raw: &str) -> Result<Vec<(String, JsonVerdict)>> {
 // ---------------------------------------------------------------------------
 // Execution
 
-/// Progress events, for callers that want to display them.
-pub enum Progress<'a> {
-    BatchStart {
-        filter: &'a str,
-        tests: usize,
-        timeout_secs: u64,
+/// A live event from a suite run. The static `RunReport` is the fold of this
+/// stream — every consumer-visible fact is emitted here first, so a
+/// streaming consumer can render ANY display without waiting for the end.
+///
+/// Marked non_exhaustive: renderers must keep a `_ => {}` arm, so new events
+/// are not breaking changes.
+#[non_exhaustive]
+pub enum Event<'a> {
+    /// CMake configure+build of the suite is starting.
+    SuiteBuildStarted { suite_dir: &'a Path },
+    /// The suite binary is built.
+    SuiteBuilt { gtest_bin: &'a Path },
+    /// `--gtest_list_tests` enumerated the test set.
+    TestsDiscovered { count: usize },
+    /// The execution plan is final; invocations run next, in order.
+    PlanReady {
+        plan: &'a ExecutionPlan,
+        from_manifest: bool,
     },
-    BatchDone {
-        filter: &'a str,
-        passed: usize,
+    /// A process-level invocation is about to run.
+    InvocationStarted {
+        index: usize,
         total: usize,
+        invocation: &'a PlannedInvocation,
     },
-    CaseDone {
-        name: &'a str,
-        passed: bool,
-        skipped: bool,
+    /// One test's verdict is known. Fires for batched and per-case tests
+    /// alike, once their invocation finishes.
+    TestFinished { verdict: &'a TestVerdict },
+    /// A process-level invocation finished; its counts are final. Carries
+    /// both what was planned and what happened (outcomes do not repeat plan
+    /// fields).
+    InvocationFinished {
+        index: usize,
+        total: usize,
+        invocation: &'a PlannedInvocation,
+        outcome: &'a InvocationOutcome,
     },
 }
 
-/// Runs one batch invocation and ingests per-case verdicts from its JSON
-/// report. If the process dies without writing a report (crash, timeout),
-/// every planned test is recorded as failed — never skipped — so a batch
-/// death cannot score better than individual failures.
-fn run_batch(gtest_bin: &Path, ld_library_path: &str, batch: &Batch) -> Vec<TestVerdict> {
+/// The default line-oriented rendering of an event — what the CLI prints:
+/// build/plan milestones and per-invocation progress, one line each.
+/// Per-batched-test verdicts are elided (they are in the report). Returns
+/// None for events the default display keeps silent.
+pub fn default_event_line(event: &Event) -> Option<String> {
+    match event {
+        Event::SuiteBuildStarted { suite_dir } => {
+            Some(format!("[build] {}", suite_dir.display()))
+        }
+        Event::TestsDiscovered { count } => Some(format!("[plan ] {} tests discovered", count)),
+        Event::PlanReady {
+            plan,
+            from_manifest,
+        } => Some(format!(
+            "[plan ] {} invocation(s){}",
+            plan.invocations.len(),
+            if *from_manifest {
+                ""
+            } else {
+                " (no manifest; global timeout)"
+            }
+        )),
+        Event::InvocationStarted { invocation, .. } => match invocation.mode {
+            InvocationMode::Suite => Some(format!(
+                "[batch] {} ({} tests, timeout {}s)",
+                invocation.filter,
+                invocation.tests.len(),
+                invocation.timeout_secs
+            )),
+            InvocationMode::Case => None,
+        },
+        Event::InvocationFinished {
+            invocation,
+            outcome,
+            ..
+        } => match invocation.mode {
+            InvocationMode::Suite => Some(format!(
+                "[batch] {} -> {}/{} passed",
+                invocation.filter, outcome.passed, outcome.total
+            )),
+            InvocationMode::Case => {
+                let mark = if outcome.skipped > 0 {
+                    "SKIP"
+                } else if outcome.passed == outcome.total {
+                    "ok"
+                } else {
+                    "FAIL"
+                };
+                Some(format!("[case ] {} {}", mark, invocation.filter))
+            }
+        },
+        _ => None,
+    }
+}
+
+/// Bounded, char-boundary-safe tail of a byte stream, for stderr excerpts.
+fn tail_of(bytes: &[u8], max: usize) -> String {
+    let s = String::from_utf8_lossy(bytes);
+    if s.len() <= max {
+        return s.into_owned();
+    }
+    let mut cut = s.len() - max;
+    while !s.is_char_boundary(cut) {
+        cut += 1;
+    }
+    format!("...{}", &s[cut..])
+}
+
+fn json_to_verdict(name: &str, v: &JsonVerdict, invocation: usize) -> TestVerdict {
+    let status = if v.skipped {
+        TestStatus::Skipped
+    } else if v.passed {
+        TestStatus::Passed
+    } else {
+        TestStatus::Failed(FailureCause::Assertion)
+    };
+    TestVerdict {
+        name: name.to_string(),
+        status,
+        failure: v.failure_text.clone(),
+        time_secs: v.time_secs,
+        invocation,
+    }
+}
+
+/// Folds an invocation's process run and verdicts into its outcome record.
+/// `passed` counts strict passes (skips are tallied separately); stderr is
+/// kept only when the process ended abnormally.
+fn outcome_of(run: &ProcessRun, verdicts: &[TestVerdict]) -> InvocationOutcome {
+    let abnormal = !matches!(run.exit, ExitKind::Clean { .. });
+    InvocationOutcome {
+        exit: run.exit,
+        duration_secs: run.duration_secs,
+        stderr_tail: if abnormal {
+            tail_of(&run.stderr, 2000)
+        } else {
+            String::new()
+        },
+        passed: verdicts
+            .iter()
+            .filter(|v| matches!(v.status, TestStatus::Passed))
+            .count(),
+        skipped: verdicts.iter().filter(|v| v.skipped()).count(),
+        total: verdicts.len(),
+    }
+}
+
+/// Runs one `suite`-mode invocation and ingests per-case verdicts from its
+/// JSON report. If the process dies without writing a report (crash,
+/// timeout), every planned test is recorded as failed — never skipped — so a
+/// batch death cannot score better than individual failures.
+fn run_batch(
+    gtest_bin: &Path,
+    ld_library_path: &str,
+    inv: &PlannedInvocation,
+    inv_index: usize,
+) -> (InvocationOutcome, Vec<TestVerdict>) {
     let json_path = gtest_bin
         .parent()
         .unwrap_or_else(|| Path::new("."))
@@ -663,163 +986,171 @@ fn run_batch(gtest_bin: &Path, ld_library_path: &str, batch: &Batch) -> Vec<Test
         gtest_bin,
         ld_library_path,
         &[
-            format!("--gtest_filter={}", batch.filter),
+            format!("--gtest_filter={}", inv.filter),
             format!("--gtest_output=json:{}", json_path.display()),
         ],
-        Duration::from_secs(batch.timeout_secs),
+        Duration::from_secs(inv.timeout_secs),
     );
 
-    let fail_all = |reason: &str| -> Vec<TestVerdict> {
-        batch
-            .tests
-            .iter()
-            .map(|name| TestVerdict {
-                name: name.clone(),
-                passed: false,
-                skipped: false,
-                failure: format!("batch '{}' produced no report: {}", batch.filter, reason),
-                time_secs: None,
-            })
-            .collect()
-    };
+    let raw = fs::read_to_string(&json_path).ok();
+    let mut parse_error = None;
+    let parsed = raw.as_ref().and_then(|raw| match parse_gtest_json_report(raw) {
+        Ok(v) => Some(v),
+        Err(e) => {
+            parse_error = Some(e);
+            None
+        }
+    });
 
-    let verdicts = match fs::read_to_string(&json_path) {
-        Ok(raw) => match parse_gtest_json_report(&raw) {
-            Ok(v) => v,
-            Err(e) => return fail_all(&format!("unparseable JSON report: {}", e)),
-        },
-        Err(_) => {
-            let reason = match &run {
-                Ok(output) => format!(
-                    "process exited with {:?} without writing a report (crash mid-run?)",
-                    output.status.code()
-                ),
-                Err(e) => e.to_string(),
+    let mut verdicts = Vec::new();
+    match parsed {
+        Some(parsed) => {
+            for name in &inv.tests {
+                match parsed.iter().find(|(n, _)| n == name) {
+                    Some((_, v)) => verdicts.push(json_to_verdict(name, v, inv_index)),
+                    None => verdicts.push(TestVerdict {
+                        name: name.clone(),
+                        status: TestStatus::Failed(FailureCause::MissingVerdict),
+                        failure: format!(
+                            "no verdict in the batch report ({})",
+                            run.exit.describe()
+                        ),
+                        time_secs: None,
+                        invocation: inv_index,
+                    }),
+                }
+            }
+            // Tests the report contains but the planner did not expect:
+            // count them too (the binary's own filter matching is
+            // authoritative).
+            for (name, v) in &parsed {
+                if !inv.tests.contains(name) {
+                    verdicts.push(json_to_verdict(name, v, inv_index));
+                }
+            }
+        }
+        None => {
+            let cause = match run.exit {
+                ExitKind::TimedOut { budget_secs } => FailureCause::TimedOut { budget_secs },
+                ExitKind::SpawnFailed => FailureCause::SpawnFailed,
+                _ => FailureCause::NoReport,
             };
-            return fail_all(&reason);
+            let failure = match parse_error {
+                Some(e) => format!("batch report unparseable: {}", e),
+                None => format!("batch produced no report: {}", run.exit.describe()),
+            };
+            for name in &inv.tests {
+                verdicts.push(TestVerdict {
+                    name: name.clone(),
+                    status: TestStatus::Failed(cause),
+                    failure: failure.clone(),
+                    time_secs: None,
+                    invocation: inv_index,
+                });
+            }
         }
-    };
+    }
 
-    let mut results = Vec::new();
-    for name in &batch.tests {
-        match verdicts.iter().find(|(n, _)| n == name) {
-            Some((_, v)) => results.push(TestVerdict {
-                name: name.clone(),
-                passed: v.passed,
-                skipped: v.skipped,
-                failure: v.failure_text.clone(),
-                time_secs: v.time_secs,
-            }),
-            None => results.push(TestVerdict {
-                name: name.clone(),
-                passed: false,
-                skipped: false,
-                failure: "no verdict in the batch report (run ended early?)".to_string(),
-                time_secs: None,
-            }),
-        }
-    }
-    // Tests the report contains but the planner did not expect: count them
-    // too (the binary's own filter matching is authoritative).
-    for (name, v) in &verdicts {
-        if !batch.tests.contains(name) {
-            results.push(TestVerdict {
-                name: name.clone(),
-                passed: v.passed,
-                skipped: v.skipped,
-                failure: v.failure_text.clone(),
-                time_secs: v.time_secs,
-            });
-        }
-    }
-    results
+    let outcome = outcome_of(&run, &verdicts);
+    (outcome, verdicts)
 }
 
 /// Runs a single test in its own process via `--gtest_filter`.
 fn run_case(
     gtest_bin: &Path,
     ld_library_path: &str,
-    name: &str,
-    timeout_secs: u64,
-) -> TestVerdict {
-    match run_gtest_process(
+    inv: &PlannedInvocation,
+    inv_index: usize,
+) -> (InvocationOutcome, Vec<TestVerdict>) {
+    let name = &inv.filter;
+    let run = run_gtest_process(
         gtest_bin,
         ld_library_path,
         &[format!("--gtest_filter={}", name)],
-        Duration::from_secs(timeout_secs),
-    ) {
-        Ok(output) => {
-            let stdout = String::from_utf8_lossy(&output.stdout);
-            let skipped = stdout.contains("[  SKIPPED ]");
-            if output.status.success() {
-                TestVerdict {
-                    name: name.to_string(),
-                    passed: true,
-                    skipped,
-                    failure: String::new(),
-                    time_secs: None,
-                }
+        Duration::from_secs(inv.timeout_secs),
+    );
+    let stdout = String::from_utf8_lossy(&run.stdout);
+
+    let verdict = match run.exit {
+        ExitKind::Clean { code: Some(0) } => TestVerdict {
+            name: name.clone(),
+            status: if stdout.contains("[  SKIPPED ]") {
+                TestStatus::Skipped
             } else {
-                TestVerdict {
-                    name: name.to_string(),
-                    passed: false,
-                    skipped: false,
-                    failure: format!(
-                        "exit status {:?}\nstdout:\n{}\nstderr:\n{}",
-                        output.status.code(),
-                        stdout,
-                        String::from_utf8_lossy(&output.stderr)
-                    ),
-                    time_secs: None,
-                }
+                TestStatus::Passed
+            },
+            failure: String::new(),
+            time_secs: None,
+            invocation: inv_index,
+        },
+        exit => {
+            let cause = match exit {
+                ExitKind::Clean { code } => FailureCause::NonZeroExit { code },
+                ExitKind::Signaled { signal } => FailureCause::Signal { signal },
+                ExitKind::TimedOut { budget_secs } => FailureCause::TimedOut { budget_secs },
+                ExitKind::SpawnFailed => FailureCause::SpawnFailed,
+            };
+            TestVerdict {
+                name: name.clone(),
+                status: TestStatus::Failed(cause),
+                failure: format!(
+                    "{}\nstdout:\n{}\nstderr:\n{}",
+                    exit.describe(),
+                    stdout,
+                    String::from_utf8_lossy(&run.stderr)
+                ),
+                time_secs: None,
+                invocation: inv_index,
             }
         }
-        Err(e) => TestVerdict {
-            name: name.to_string(),
-            passed: false,
-            skipped: false,
-            failure: e.to_string(),
-            time_secs: None,
-        },
-    }
+    };
+
+    let verdicts = vec![verdict];
+    let outcome = outcome_of(&run, &verdicts);
+    (outcome, verdicts)
 }
 
-/// Executes a plan against a built test binary.
+/// Executes a plan against a built test binary, emitting events as it goes,
+/// and returns the folded report. Takes the plan by value: it becomes part
+/// of the report (`RunReport::plan`), keeping outcomes free of plan copies.
 pub fn execute_plan(
     gtest_bin: &Path,
     ld_library_path: &str,
-    plan: &ExecutionPlan,
-    mut progress: impl FnMut(Progress),
+    plan: ExecutionPlan,
+    mut on_event: impl FnMut(&Event),
 ) -> RunReport {
-    let mut report = RunReport::default();
+    let mut outcomes = Vec::new();
+    let mut all_verdicts = Vec::new();
+    let total = plan.invocations.len();
 
-    for batch in &plan.batches {
-        progress(Progress::BatchStart {
-            filter: &batch.filter,
-            tests: batch.tests.len(),
-            timeout_secs: batch.timeout_secs,
+    for (index, inv) in plan.invocations.iter().enumerate() {
+        on_event(&Event::InvocationStarted {
+            index,
+            total,
+            invocation: inv,
         });
-        let verdicts = run_batch(gtest_bin, ld_library_path, batch);
-        let passed = verdicts.iter().filter(|v| v.passed).count();
-        progress(Progress::BatchDone {
-            filter: &batch.filter,
-            passed,
-            total: verdicts.len(),
+        let (outcome, verdicts) = match inv.mode {
+            InvocationMode::Suite => run_batch(gtest_bin, ld_library_path, inv, index),
+            InvocationMode::Case => run_case(gtest_bin, ld_library_path, inv, index),
+        };
+        for v in &verdicts {
+            on_event(&Event::TestFinished { verdict: v });
+        }
+        on_event(&Event::InvocationFinished {
+            index,
+            total,
+            invocation: inv,
+            outcome: &outcome,
         });
-        report.verdicts.extend(verdicts);
+        outcomes.push(outcome);
+        all_verdicts.extend(verdicts);
     }
 
-    for (name, timeout_secs) in &plan.singles {
-        let verdict = run_case(gtest_bin, ld_library_path, name, *timeout_secs);
-        progress(Progress::CaseDone {
-            name,
-            passed: verdict.passed,
-            skipped: verdict.skipped,
-        });
-        report.verdicts.push(verdict);
+    RunReport {
+        plan,
+        outcomes,
+        verdicts: all_verdicts,
     }
-
-    report
 }
 
 // ---------------------------------------------------------------------------
@@ -838,10 +1169,28 @@ pub struct RunConfig {
     pub fallback_timeout: u64,
 }
 
-/// Builds the suite, plans, and executes: the whole pipeline.
-pub fn run_suite(config: &RunConfig, progress: impl FnMut(Progress)) -> Result<RunReport> {
+/// Builds the suite, plans, and executes — the static entry point. No
+/// events, just the final report: render it with `{}` for the default
+/// summary, walk `verdicts`/`invocations` for structured detail, or
+/// serialize it for machines.
+pub fn run_suite(config: &RunConfig) -> Result<RunReport> {
+    run_suite_streaming(config, |_| {})
+}
+
+/// The streaming entry point: the same pipeline with every step emitted as
+/// an [`Event`] while it happens. Pair it with [`default_event_line`] for
+/// the stock display, or match the events for a custom one; the returned
+/// report is the fold of exactly the events delivered.
+pub fn run_suite_streaming(
+    config: &RunConfig,
+    mut on_event: impl FnMut(&Event),
+) -> Result<RunReport> {
     let manifest = load_manifest(&config.suite_dir)?;
+    on_event(&Event::SuiteBuildStarted {
+        suite_dir: &config.suite_dir,
+    });
     let bin = build_suite(&config.suite_dir, &config.lib_path, &config.build_dir)?;
+    on_event(&Event::SuiteBuilt { gtest_bin: &bin });
     let ld_library_path = config
         .lib_path
         .canonicalize()
@@ -851,8 +1200,13 @@ pub fn run_suite(config: &RunConfig, progress: impl FnMut(Progress)) -> Result<R
         .unwrap_or_default();
 
     let tests = list_gtest_tests(&bin, &ld_library_path)?;
+    on_event(&Event::TestsDiscovered { count: tests.len() });
     let plan = build_execution_plan(&tests, manifest.as_ref(), config.fallback_timeout);
-    Ok(execute_plan(&bin, &ld_library_path, &plan, progress))
+    on_event(&Event::PlanReady {
+        plan: &plan,
+        from_manifest: manifest.is_some(),
+    });
+    Ok(execute_plan(&bin, &ld_library_path, plan, on_event))
 }
 
 /// Detects whether a directory is a test directory (a `test_case/` C source
@@ -866,7 +1220,7 @@ pub fn is_test_dir(path: &Path) -> bool {
 pub fn verify_test_dir(
     test_dir: &Path,
     fallback_timeout: u64,
-    progress: impl FnMut(Progress),
+    on_event: impl FnMut(&Event),
 ) -> Result<RunReport> {
     if !is_test_dir(test_dir) {
         return Err(format!(
@@ -883,7 +1237,7 @@ pub fn verify_test_dir(
         build_dir: test_dir.join("build").join("gtest"),
         fallback_timeout,
     };
-    run_suite(&config, progress)
+    run_suite_streaming(&config, on_event)
 }
 
 // ---------------------------------------------------------------------------
@@ -939,12 +1293,20 @@ mod tests {
             "Plain.Simple".to_string(),
         ];
         let plan = build_execution_plan(&tests, Some(&manifest), 42);
-        assert_eq!(plan.batches.len(), 1);
-        assert_eq!(plan.batches[0].tests.len(), 2);
-        assert_eq!(plan.batches[0].timeout_secs, 10); // floor
-        assert_eq!(plan.singles.len(), 2);
-        assert_eq!(plan.singles[0], ("Heavy.Big".to_string(), 252)); // 84*3
-        assert_eq!(plan.singles[1], ("Plain.Simple".to_string(), 42)); // fallback
+        assert_eq!(plan.invocations.len(), 3);
+        // Batches first (manifest order), then cases (listing order).
+        let batch = &plan.invocations[0];
+        assert_eq!(batch.mode, InvocationMode::Suite);
+        assert_eq!(batch.tests.len(), 2);
+        assert_eq!(batch.timeout_secs, 10); // floor
+        let heavy = &plan.invocations[1];
+        assert_eq!(heavy.mode, InvocationMode::Case);
+        assert_eq!(heavy.filter, "Heavy.Big");
+        assert_eq!(heavy.timeout_secs, 252); // 84*3
+        let plain = &plan.invocations[2];
+        assert_eq!(plain.mode, InvocationMode::Case);
+        assert_eq!(plain.filter, "Plain.Simple");
+        assert_eq!(plain.timeout_secs, 42); // fallback
     }
 
     #[test]

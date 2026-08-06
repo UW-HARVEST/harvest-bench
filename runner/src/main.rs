@@ -5,8 +5,8 @@ use std::process::ExitCode;
 
 use clap::{Parser, Subcommand};
 use harvest_bench::{
-    build_c_reference, build_suite, is_test_dir, list_gtest_tests, load_manifest, run_suite,
-    Progress, RunConfig, RunReport,
+    build_suite, default_event_line, is_test_dir, list_gtest_tests, load_manifest,
+    run_suite_streaming, verify_test_dir, Event, RunConfig, RunReport,
 };
 
 #[derive(Parser)]
@@ -74,47 +74,10 @@ fn default_build_dir(suite: &PathBuf) -> PathBuf {
         .unwrap_or_else(|| PathBuf::from("build/gtest"))
 }
 
-fn print_progress(p: Progress) {
-    match p {
-        Progress::BatchStart {
-            filter,
-            tests,
-            timeout_secs,
-        } => println!("[batch] {} ({} tests, timeout {}s)", filter, tests, timeout_secs),
-        Progress::BatchDone {
-            filter,
-            passed,
-            total,
-        } => println!("[batch] {} -> {}/{} passed", filter, passed, total),
-        Progress::CaseDone {
-            name,
-            passed,
-            skipped,
-        } => {
-            let mark = if skipped {
-                "SKIP"
-            } else if passed {
-                "ok"
-            } else {
-                "FAIL"
-            };
-            println!("[case ] {} {}", mark, name);
-        }
-    }
-}
-
-fn print_summary(label: &str, report: &RunReport) {
-    println!(
-        "{}: {} tests, {} passed, {} failed, {} skipped",
-        label,
-        report.verdicts.len(),
-        report.passed(),
-        report.failed(),
-        report.skipped()
-    );
-    for v in report.verdicts.iter().filter(|v| !v.passed) {
-        let first = v.failure.lines().next().unwrap_or("");
-        println!("  FAIL {} - {}", v.name, first);
+/// The CLI's live display IS the library's default one.
+fn print_event(event: &Event) {
+    if let Some(line) = default_event_line(event) {
+        println!("{}", line);
     }
 }
 
@@ -141,8 +104,8 @@ fn cmd_run(
         lib_path: lib,
         fallback_timeout: timeout,
     };
-    let report = run_suite(&config, print_progress)?;
-    print_summary("total", &report);
+    let report = run_suite_streaming(&config, print_event)?;
+    print!("{}", report);
     if let Some(path) = json {
         write_json(&path, &[("run".to_string(), &report)])?;
     }
@@ -183,17 +146,8 @@ fn cmd_verify(
             .map(|n| n.to_string_lossy().into_owned())
             .unwrap_or_else(|| dir.display().to_string());
         println!("=== {} ===", name);
-        let c_build = dir.join("build").join("c");
-        let lib = build_c_reference(&dir.join("test_case"), &c_build)?;
-        println!("reference library: {}", lib.display());
-        let config = RunConfig {
-            suite_dir: dir.join("gtest_suite"),
-            lib_path: lib,
-            build_dir: dir.join("build").join("gtest"),
-            fallback_timeout: timeout,
-        };
-        let report = run_suite(&config, print_progress)?;
-        print_summary(&name, &report);
+        let report = verify_test_dir(dir, timeout, print_event)?;
+        print!("{}", report);
         all_ok &= report.all_passed();
         reports.push((name, report));
     }
