@@ -23,16 +23,33 @@ if(NOT DEFINED TEST_LIB_PATH)
   message(FATAL_ERROR "Pass -DTEST_LIB_PATH=/abs/path/to/libpng.so (library under test)")
 endif()
 
-# Glue TU includes upstream/pngvalid.c verbatim (main renamed). Not warning
-# clean under this project's defaults.
-set_source_files_properties(glue/glue_pngvalid.c PROPERTIES
-    COMPILE_OPTIONS "-w"
-)
+# The glue TU includes upstream/pngvalid.c verbatim (main renamed) and is not
+# warning clean under this project's defaults. It is an object library so the
+# test binary and the scenario-list generator share one compilation of those
+# ~12k lines.
+add_library(pngvalid_glue OBJECT glue/glue_pngvalid.c)
+target_compile_options(pngvalid_glue PRIVATE -w)
+target_include_directories(pngvalid_glue PRIVATE upstream upstream/include glue)
 
 add_executable(harvest_gtest
     upstream_tests.cc
-    glue/glue_pngvalid.c
+    glue/pv_record.cc
+    $<TARGET_OBJECTS:pngvalid_glue>
 )
+
+# Regenerates glue/scenario_list.h, the checked-in list of scenario names the
+# suite registers. Not part of the default build's critical path, but built
+# with it so it cannot rot:
+#
+#   cmake --build <build> --target harvest_scenario_list
+#   ./<build>/harvest_scenario_list > gtest_suite/glue/scenario_list.h
+#
+# See glue/dump_scenarios.c for when this is needed.
+add_executable(harvest_scenario_list
+    glue/dump_scenarios.c
+    $<TARGET_OBJECTS:pngvalid_glue>
+)
+target_include_directories(harvest_scenario_list PRIVATE glue)
 
 # pngvalid.c (via PNG_FREESTANDING_TESTS) includes <png.h>, <zlib.h>, and
 # <cexcept.h> from the include path. png.h + config are in upstream/include;
@@ -40,6 +57,7 @@ add_executable(harvest_gtest
 target_include_directories(harvest_gtest PRIVATE
     upstream
     upstream/include
+    glue
 )
 
 # pngvalid calls zlib crc32() directly in the HARNESS (not via the library under
@@ -55,3 +73,7 @@ target_link_libraries(harvest_gtest PRIVATE
     ${CMAKE_DL_LIBS}
     m
 )
+
+# The generator links the library under test because the shared glue object
+# references its symbols; enumeration never calls any of them.
+target_link_libraries(harvest_scenario_list PRIVATE ${TEST_LIB_PATH} ZLIB::ZLIB m)
