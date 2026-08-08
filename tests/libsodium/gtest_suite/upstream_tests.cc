@@ -8,10 +8,46 @@
 //
 // The glue TUs (glue/glue_<name>.c) each include one upstream driver verbatim
 // with its harness main() renamed to harvest_<name>(). This file wraps each as
-// one test case. Runtime working directory is set to upstream/ (by the harness
-// / TEST_SRCDIR) so the .exp files are found.
+// one test case.
 
 #include <gtest/gtest.h>
+
+#include <cstdio>
+#include <filesystem>
+
+namespace {
+
+// cmptest.h opens each driver's expected output through TEST_SRCDIR, an
+// absolute path baked in by CMake, but writes the driver's captured stdout to
+// a RELATIVE "<name>.res" path. Those 104 scratch files therefore land in
+// whatever directory the suite was started from, which for the harness is the
+// caller's working directory rather than anything this suite owns.
+//
+// Moving the working directory into the suite's own build tree before any
+// test runs keeps them there. It cannot disturb the comparison, because the
+// only relative path in play is the .res file itself. The scratch files are
+// left in place on purpose: when a driver's output does not match its .exp,
+// that file is the evidence, and a build tree is where a build artifact
+// belongs.
+//
+// A static initializer runs this before main(), and so before any test.
+[[maybe_unused]] const bool kScratchDirReady = [] {
+    std::error_code ec;
+    std::filesystem::create_directories(HARVEST_SCRATCH_DIR, ec);
+    if (!ec) {
+        std::filesystem::current_path(HARVEST_SCRATCH_DIR, ec);
+    }
+    if (ec) {
+        std::fprintf(stderr,
+                     "warning: could not use %s for .res scratch files (%s); "
+                     "they will be written to the current directory\n",
+                     HARVEST_SCRATCH_DIR, ec.message().c_str());
+        return false;
+    }
+    return true;
+}();
+
+}  // namespace
 
 extern "C" {
 int harvest_aead_aegis128l_(void);

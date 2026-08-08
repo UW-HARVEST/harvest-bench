@@ -44,18 +44,30 @@ add_executable(harvest_gtest
     ${UPSTREAM_GLUE}
 )
 
+# cmptest.h writes each driver's captured stdout to a RELATIVE "<name>.res"
+# path, so without this the 104 scratch files land in whatever directory the
+# suite was started from. upstream_tests.cc moves the working directory here
+# before any test runs; see the comment there.
+set_source_files_properties(upstream_tests.cc PROPERTIES
+    COMPILE_DEFINITIONS "HARVEST_SCRATCH_DIR=\"${CMAKE_CURRENT_BINARY_DIR}/res\""
+)
+
 # Glue TUs #include upstream drivers, which #include "cmptest.h"/"quirks.h"
 # (in upstream/) and the libsodium public headers.
+#
+# `include/` holds the library's public headers, copied verbatim from
+# test_case/libsodium/include/ and kept separate from upstream/ (which holds
+# the test drivers). The copy makes the suite self-contained: the harness
+# stages gtest_suite/ alone into a translated project's snapshot, so any path
+# reaching outside this directory breaks there. `LIBSODIUM_INCLUDE_DIR`
+# overrides the copy when a caller wants to test against different headers.
+if(NOT DEFINED LIBSODIUM_INCLUDE_DIR)
+  set(LIBSODIUM_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/include")
+endif()
+
 target_include_directories(harvest_gtest PRIVATE
     upstream
     "${LIBSODIUM_INCLUDE_DIR}"
 )
-# The public headers live in the test_case source tree; allow an override but
-# default to the sibling test_case include dir.
-if(NOT DEFINED LIBSODIUM_INCLUDE_DIR)
-  target_include_directories(harvest_gtest PRIVATE
-    "${CMAKE_CURRENT_SOURCE_DIR}/../test_case/libsodium/include"
-  )
-endif()
 
 target_link_libraries(harvest_gtest PRIVATE GTest::gtest_main ${TEST_LIB_PATH} ${CMAKE_DL_LIBS})
