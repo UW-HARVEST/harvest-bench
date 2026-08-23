@@ -9,11 +9,19 @@ set(CMAKE_C_STANDARD 99)
 # inline so this suite is self-contained wherever the directory is copied.
 # Offline builds: pre-populate the source once and point CMake at it with
 #   -DFETCHCONTENT_SOURCE_DIR_GOOGLETEST=/path/to/googletest-1.17.0
+# `DOWNLOAD_EXTRACT_TIMESTAMP` silences a timestamp warning but exists only from CMake 3.24. On 3.22 the
+# keyword is unknown to ExternalProject, so cmake_parse_arguments absorbs it into URL -- a MULTI-value
+# keyword -- and the fetch dies with "At least one entry of URL is a path (invalid in a list)". That took
+# out all seven suites on a 3.22 box: every project scored `no tests passed` from a healthy translation.
+set(GTEST_FETCH_EXTRA "")
+if(CMAKE_VERSION VERSION_GREATER_EQUAL 3.24)
+  set(GTEST_FETCH_EXTRA DOWNLOAD_EXTRACT_TIMESTAMP ON)
+endif()
 include(FetchContent)
 FetchContent_Declare(
   googletest
   URL https://github.com/google/googletest/archive/refs/tags/v1.17.0.tar.gz
-  DOWNLOAD_EXTRACT_TIMESTAMP ON
+  ${GTEST_FETCH_EXTRA}
 )
 # Only gtest is needed; skip GoogleMock and install rules.
 set(BUILD_GMOCK OFF CACHE BOOL "" FORCE)
