@@ -113,7 +113,7 @@ the library under test ends the whole run and GoogleTest writes no report.
 - Network access on the first configure, to fetch the pinned GoogleTest. For
   offline builds, pre-populate the source once and pass
   `-DFETCHCONTENT_SOURCE_DIR_GOOGLETEST=/path/to/googletest-1.17.0`.
-- Rust 1.85 or newer for the runner.
+- Rust 1.99 for the runner (pinned in `rust-toolchain.toml`).
 - Linux. The aggregate suites use `fork`, and the runner assumes ELF shared
   libraries.
 

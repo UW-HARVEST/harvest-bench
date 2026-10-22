@@ -85,20 +85,6 @@ The suite honors the upstream `nostrip` and `skip_*_dtoa` markers. The full C
 baseline is **135/135 green** (one `no_dtoa` variant self-skips on this
 dtoa-enabled build) and runs in well under one second.
 
-## Known limitation: variadic APIs are not implementable in stable Rust
-
-Part of jansson's public C ABI is variadic: `json_pack`, `json_pack_ex`,
-`json_unpack`, `json_unpack_ex`, `json_sprintf`, and their `va_list`
-counterparts (`json_vpack_ex`, `json_vunpack_ex`, `json_vsprintf`). A
-variadic `extern "C"` function (or a `va_list` parameter) requires the
-`c_variadic` feature, which is **nightly-only**. A translation constrained
-to a stable Rust toolchain cannot export these functions faithfully.
-Workarounds like `RUSTC_BOOTSTRAP=1` violate the stable-toolchain contract.
-Tests that exercise this surface (`UpstreamApi.Pack`, `UpstreamApi.Unpack`,
-`UpstreamApi.Sprintf`, and parts of `UpstreamApi.Chaos`/`ChaosRealloc`) will
-therefore fail against stable-Rust translations. Treat them as a measure of
-this gap, not of translation quality.
-
 ## Build
 
 ```bash
