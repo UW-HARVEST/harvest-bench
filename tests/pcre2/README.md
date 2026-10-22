@@ -15,7 +15,8 @@
 This test case provides the PCRE2 regular-expression engine (pattern compiler, matcher,
 DFA matcher, and substitution engine) for C-to-Rust translation. The build uses the
 8-bit code unit width with Unicode/UTF-8 support (`SUPPORT_UNICODE`) enabled.
-`test_case/` contains **only** verbatim upstream library sources. There is no dispatch
+`test_case/` contains **only** verbatim upstream library sources and upstream API
+documentation (`doc/`). There is no dispatch
 wrapper and no other adaptation code in the translation input. The translated Rust
 cdylib must therefore export the **full public C ABI** of the library. The test
 suite links against it directly (`pcre2_compile_8`, `pcre2_match_8`,
@@ -88,6 +89,27 @@ Changes made to the upstream source to fit the test corpus:
 | `config.h` | 497 | From `config.h.generic` (see Adaptation Layer) |
 | `include/pcre2.h` | 1,080 | Public API, from `pcre2.h.generic` |
 | **Total** | **~73,700** | |
+
+## API Documentation: `test_case/doc/`
+
+Upstream API documentation for the agents that translate and verify this
+library. `pcre2.h` lists the option bits but not the rules for them, for
+example which options `PCRE2_LITERAL` allows or which options `pcre2_match`
+accepts.
+
+- **Source**: PCRE2 commit `ff92e0b` (`git describe` pcre2-10.47-57-gff92e0b9,
+  10.48-DEV). This is the commit whose library files are identical to
+  `test_case/`.
+- **Files**: these man pages, rendered to plain text: `pcre2api`,
+  `pcre2syntax`, `pcre2limits`, `pcre2matching`, `pcre2partial`, `pcre2jit`,
+  `pcre2convert`, `pcre2serialize`, `pcre2unicode`; and `LICENCE.md`. Render
+  command: `groff -t -man -Tascii -rLL=100n -rHY=0 -dAD=l -P-cbou doc/<page>.3`
+  (no hyphenation, so option names are not split). This build has no JIT
+  support, so the JIT functions return errors; `pcre2jit.txt` describes that
+  case too.
+- **Not included**: `pcre2pattern` (regex semantics, long, no parameter
+  rules), the per-function pages, the HTML copy, and `pcre2test`/`testdata/`
+  (the test oracle).
 
 ## Tests: `gtest_suite/`
 

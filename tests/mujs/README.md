@@ -86,6 +86,22 @@ mujs (minus the three removed functions).
 | `include/mujs.h` | 250 | Public API |
 | **Total** | **~14,950** | |
 
+## API Documentation: `test_case/doc/`
+
+Upstream API documentation for the agents that translate and verify this
+library. `mujs.h` has almost no comments.
+
+- **Source**: [MuJS on Codeberg](https://codeberg.org/ccxvii/mujs), commit
+  `e892c9f` (2026-05-06, 19 commits after tag 1.3.8; the version macros still
+  say 1.3.8). This is the commit whose library files match `test_case/`,
+  except for the removals in "Adaptation Layer". The files are verbatim.
+- **Files**: `doc/reference.html` (the C API reference) and `doc/COPYING`
+  (ISC).
+- **Known gap**: the reference is older than the code. It does not describe about 30
+  of the functions in `mujs.h` (for example `js_setlimit`), and it still
+  describes the file functions that this test case removed (`js_loadfile`,
+  `js_ploadfile`, `js_dofile`).
+
 ## Build
 
 ```bash

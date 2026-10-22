@@ -10,7 +10,8 @@
 ## What This Tests
 
 The complete libpng library for C-to-Rust translation. `test_case/` contains
-**only** verbatim upstream library sources. There is no dispatch wrapper and no
+**only** verbatim upstream library sources and upstream API documentation
+(`doc/`). There is no dispatch wrapper and no
 other adaptation code in the translation input. The translated Rust cdylib must
 export the **full public C ABI** of the library (`png_create_read_struct`,
 `png_read_info`, `png_read_image`, `png_create_write_struct`, `png_write_*`,
@@ -30,6 +31,21 @@ of the library. `include/pnglibconf.h` is the prebuilt config header shipped
 upstream in `scripts/pnglibconf.h.prebuilt` (normally produced at configure
 time). The only non-upstream file is `test_case/CMakeLists.txt`, which builds
 the sources into one shared library (`libpng.so`, linked against zlib).
+
+## API Documentation: `test_case/doc/`
+
+Upstream API documentation for the agents that translate and verify this
+library. `png.h` does not state some API contracts, for example the legal bit
+depths for each color type or the default user limits.
+
+- **Source**: libpng commit `cae4745` (branch `libpng16`, `git describe`
+  v1.6.58-9-gcae4745). This is the commit whose library files are identical
+  to `test_case/`.
+- **Files**: `doc/libpng-manual.txt`, verbatim. The license is the same as for
+  the library (`test_case/LICENSE`).
+- **Not included**: `libpng.3` (the same text as the manual), `png.5`, and
+  everything under `contrib/`. `contrib/libtests/pngvalid.c` and the PNG test
+  images are part of the test oracle.
 
 ## Tests: `gtest_suite/`
 

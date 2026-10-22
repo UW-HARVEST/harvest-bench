@@ -10,7 +10,8 @@
 ## What This Tests
 
 The complete libsodium library for C-to-Rust translation. `test_case/` contains
-**only** verbatim upstream library sources (`src/libsodium/`). There is no
+**only** verbatim upstream library sources (`src/libsodium/`) and upstream API
+documentation (`doc/`). There is no
 dispatch wrapper and no other adaptation code in the translation input. The
 translated Rust cdylib must therefore export the **full public C ABI** of the
 library. The test suite links against the public symbols directly
@@ -36,6 +37,27 @@ reference semantics; SIMD/hardware variants are not exercised.
 
 The only non-upstream file is `test_case/CMakeLists.txt`, which builds the
 sources into a single shared library (`libsodium.so`).
+
+## API Documentation: `test_case/doc/`
+
+Upstream API documentation for the agents that translate and verify this
+library. The libsodium headers have almost no comments, so the documentation
+is the only source of most API contracts (for example the `crypto_pwhash`
+limits or the `crypto_kdf` subkey lengths).
+
+- **Source**: the separate repository
+  [libsodium-doc](https://github.com/jedisct1/libsodium-doc), commit `ef89119`
+  (2026-07-23). That repository has no version tags, so the match is by date.
+  The library files of `test_case/` are identical to libsodium master
+  `7014b20` (2026-07-12), and the next library commit is from 2026-07-31, so
+  this documentation describes the same code. The files are verbatim.
+- **Files**: the API chapters `advanced/`, `generating_random_data/`,
+  `hashing/`, `helpers/`, `ip_address_encryption/`, `key_derivation/`,
+  `key_exchange/`, `password_hashing/`, `public-key_cryptography/`,
+  `secret-key_cryptography/`, `usage/`, and the documentation `LICENSE` (ISC).
+- **Not included**: installation, quickstart, bindings, internals, the user
+  list, the book files, and all test data (`test/default/*.exp` is part of the
+  test oracle).
 
 ## Tests: `gtest_suite/`
 

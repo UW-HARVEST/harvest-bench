@@ -17,7 +17,8 @@ and equivalence checks between two implementations of the same API.
 tests/            One directory per test program
   lz4/
     README.md     Provenance, adaptation notes, and usage for this test
-    test_case/    The C library source and its CMake build
+    test_case/    The C library source and its CMake build (some tests also
+                  have upstream API documentation in test_case/doc/)
     gtest_suite/  The GoogleTest suite and its manifest.json
   jansson/
   mujs/

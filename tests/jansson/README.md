@@ -10,7 +10,8 @@
 ## What This Tests
 
 The complete jansson library for C-to-Rust translation. `test_case/` contains
-**only** verbatim upstream library sources. There is no dispatch wrapper and
+**only** verbatim upstream library sources and upstream API documentation
+(`doc/`). There is no dispatch wrapper and
 no other adaptation code in the translation input. The translated Rust cdylib
 must therefore export the **full public C ABI** of the
 library. The test suite calls individual public symbols directly (parse,
@@ -44,6 +45,19 @@ modifications** (byte-identical to upstream `src/`).
 The only non-upstream file is `test_case/CMakeLists.txt`, which builds the
 sources into a single shared library (`libjansson.so`, `HAVE_CONFIG_H`, dtoa
 enabled).
+
+## API Documentation: `test_case/doc/`
+
+Upstream API documentation for the agents that translate and verify this
+library. The header comments do not state most of the API contracts (for
+example the `JSON_INDENT` range or the `json_pack` format rules).
+
+- **Source**: jansson tag `v2.15.0` (commit `4a9a6db`), the same release as the
+  library sources. The files are verbatim.
+- **Files**: `doc/apiref.rst`, `doc/conformance.rst`, `doc/threadsafety.rst`,
+  and the project `LICENSE` (MIT).
+- **Not included**: the tutorial, build guides, the change log, and all test
+  data.
 
 ## Tests: `gtest_suite/`
 
