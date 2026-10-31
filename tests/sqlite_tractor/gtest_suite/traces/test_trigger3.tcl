@@ -1,0 +1,1 @@
+set expected_assertions {trigger3-1.1 trigger3-1.1b trigger3-1.2 trigger3-1.3 trigger3-2.1 trigger3-2.1b trigger3-2.2 trigger3-3.1 trigger3-3.1b trigger3-3.2 trigger3-3.3 trigger3-3.3b trigger3-3.4 trigger3-4.1 trigger3-4.2 trigger3-5.1 trigger3-5.2 trigger3-6 trigger3-7.1 trigger3-7.1b trigger3-7.2 trigger3-7.3 trigger3-7.3b trigger3-8.1}

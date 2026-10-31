@@ -1,0 +1,5947 @@
+{
+  "version": 1,
+  "default_factor": 3.0,
+  "min_seconds": 10,
+  "invocations": [
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/cast_cast_10_2_L521",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/cast_cast_10_3_L524",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/cast_cast_10_4_L527",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/cast_cast_5_1_L346",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/cast_cast_5_2_L355",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/cast_cast_5_3_L366",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/cast_cast_6_1_L376",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/cast_cast_7_10_L404",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/cast_cast_7_11_L407",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/cast_cast_7_12_L410",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/cast_cast_7_1_L389",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/cast_cast_7_20_L420",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/cast_cast_7_2_L392",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/cast_cast_7_3_L395",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/cast_cast_7_4_L398",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/cast_cast_9_0_L473",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/cast_cast_9_1_L483",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/cast_cast_9_2_L488",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/cast_cast_9_3_L491",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/date2_date2_100_L27",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/date3_date3_2_40_L101",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/date3_date3_5_0_L142",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/date_date_6_25_1_L352",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/date_date_6_25_2_L355",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/date_date_6_25_3_L358",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/date_date_6_25_4_L361",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/date_date_6_25_5_L364",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/date_date_6_25_6_L367",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/date_date_6_25_7_L370",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/date_date_6_26_L373",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/date_date_6_27_L376",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/expr_expr_14_1_L1010",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/expr_expr_16_1_L1069",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/ext_fts5_test_fts5ad",
+      "budget": 0.3
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/ext_fts5_test_fts5af",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/ext_fts5_test_fts5ah",
+      "budget": 1.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/ext_fts5_test_fts5ai",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/ext_fts5_test_fts5ak",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/ext_fts5_test_fts5alter",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/ext_fts5_test_fts5bigid",
+      "budget": 1.6
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/ext_fts5_test_fts5bigtok",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/ext_fts5_test_fts5circref",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/ext_fts5_test_fts5conflict",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/ext_fts5_test_fts5connect",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/ext_fts5_test_fts5contentless2",
+      "budget": 1.7
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/ext_fts5_test_fts5contentless5",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/ext_fts5_test_fts5determin",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/ext_fts5_test_fts5dlidx",
+      "budget": 2.4
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/ext_fts5_test_fts5doclist",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/ext_fts5_test_fts5expr",
+      "budget": 0.2
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/ext_fts5_test_fts5full",
+      "budget": 0.2
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/ext_fts5_test_fts5fuzz1",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/ext_fts5_test_fts5integrity2",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/ext_fts5_test_fts5join",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/ext_fts5_test_fts5lastrowid",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/ext_fts5_test_fts5leftjoin",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/ext_fts5_test_fts5limits",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/ext_fts5_test_fts5merge2",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/ext_fts5_test_fts5near",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/ext_fts5_test_fts5optimize2",
+      "budget": 2.5
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/ext_fts5_test_fts5optimize3",
+      "budget": 0.9
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/ext_fts5_test_fts5phrase",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/ext_fts5_test_fts5plan",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/ext_fts5_test_fts5prefix2",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/ext_fts5_test_fts5query",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/ext_fts5_test_fts5rebuild",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/ext_fts5_test_fts5savepoint",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/ext_fts5_test_fts5secure",
+      "budget": 0.4
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/ext_fts5_test_fts5secure2",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/ext_fts5_test_fts5secure3",
+      "budget": 3.7
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/ext_fts5_test_fts5secure4",
+      "budget": 0.6
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/ext_fts5_test_fts5secure5",
+      "budget": 0.2
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/ext_fts5_test_fts5secure6",
+      "budget": 0.4
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/ext_fts5_test_fts5secure7",
+      "budget": 1.6
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/ext_fts5_test_fts5secure8",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/ext_fts5_test_fts5trigram2",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/ext_fts5_test_fts5ubsan",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/ext_fts5_test_fts5unicode4",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/ext_fts5_test_fts5unindexed",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/ext_fts5_test_fts5update",
+      "budget": 0.7
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/ext_fts5_test_fts5update2",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/ext_fts5_test_fts5version",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/ext_recover_recoverclobber",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/ext_recover_recoverrowid",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/ext_recover_recoversql",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/ext_rtree_rtree2",
+      "budget": 4.2
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/ext_rtree_rtree4",
+      "budget": 14.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/ext_rtree_rtree5",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/ext_rtree_rtree6",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/ext_rtree_rtree7",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/ext_rtree_rtreeA",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/ext_rtree_rtreeB",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/ext_rtree_rtreeC",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/ext_rtree_rtreeF",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/ext_rtree_rtreeH",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/ext_rtree_rtreeI",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/ext_rtree_rtreeJ",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/ext_rtree_rtreecheck",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/ext_rtree_rtreecirc",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/ext_rtree_rtreeconnect",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/ext_rtree_tkt3363",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/ext_session_session8",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/ext_session_sessionA",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/ext_session_sessionE",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/ext_session_sessionF",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/ext_session_sessionH",
+      "budget": 0.2
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/ext_session_sessionI",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/ext_session_session_gen",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/ext_session_sessionalter",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/ext_session_sessionblob",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/ext_session_sessionmem",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/ext_session_sessionnoop",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/ext_session_sessionnoop2",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/ext_session_sessionrebase",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/ext_session_sessionrowid",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/ext_session_sessionstat1",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/ext_session_sessionwor",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func3_func3_5_1_L76",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func3_func3_5_2_L79",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func3_func3_5_30_L129",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func3_func3_5_31_L132",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func3_func3_5_32_L135",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func3_func3_5_33_L138",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func3_func3_5_34_L141",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func3_func3_5_35_L144",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func3_func3_5_3_L82",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func3_func3_5_4_L85",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func3_func3_5_50_L173",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func3_func3_5_51_L176",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func3_func3_5_52_L179",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func3_func3_5_53_L182",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func3_func3_5_54_L185",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func3_func3_5_55_L188",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func3_func3_5_5_L88",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func3_func3_5_6_L91",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func3_func3_5_7_L98",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func5_func5_2_1_L45",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func6_func6_300_L176",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func7_func7_100_L21",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func7_func7_110_L24",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func7_func7_200_L27",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func7_func7_210_L30",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func7_func7_mysql_100_L165",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func7_func7_mysql_110_L168",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func7_func7_mysql_120_L171",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func7_func7_mysql_130_L174",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func7_func7_mysql_150_L182",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func7_func7_mysql_160_L185",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func7_func7_mysql_170_L188",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func7_func7_mysql_180_L191",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func7_func7_mysql_190_L194",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func7_func7_mysql_190_L197",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func7_func7_mysql_200_L200",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func7_func7_mysql_210_L203",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func7_func7_mysql_230_L210",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func7_func7_mysql_240_L213",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func7_func7_mysql_250_L216",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func7_func7_mysql_260_L219",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func7_func7_mysql_270_L222",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func7_func7_mysql_280_L225",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func7_func7_mysql_281_L228",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func7_func7_mysql_290_L231",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func7_func7_mysql_300_L234",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func7_func7_mysql_310_L237",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func7_func7_mysql_320_L240",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func7_func7_mysql_330_L243",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func7_func7_mysql_331_L246",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func7_func7_pg_100_L36",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func7_func7_pg_110_L39",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func7_func7_pg_120_L42",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func7_func7_pg_130_L45",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func7_func7_pg_140_L48",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func7_func7_pg_150_L51",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func7_func7_pg_160_L54",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func7_func7_pg_170_L57",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func7_func7_pg_180_L60",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func7_func7_pg_181_L63",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func7_func7_pg_182_L66",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func7_func7_pg_190_L69",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func7_func7_pg_200_L72",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func7_func7_pg_210_L75",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func7_func7_pg_220_L78",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func7_func7_pg_230_L81",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func7_func7_pg_240_L84",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func7_func7_pg_250_L87",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func7_func7_pg_260_L90",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func7_func7_pg_270_L93",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func7_func7_pg_280_L96",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func7_func7_pg_301_L102",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func7_func7_pg_310_L105",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func7_func7_pg_311_L108",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func7_func7_pg_320_L111",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func7_func7_pg_321_L114",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func7_func7_pg_330_L117",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func7_func7_pg_331_L120",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func7_func7_pg_400_L123",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func7_func7_pg_401_L126",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func7_func7_pg_410_L132",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func7_func7_pg_411_L135",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func7_func7_pg_420_L138",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func7_func7_pg_421_L141",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func7_func7_pg_500_L144",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func7_func7_pg_510_L147",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func7_func7_pg_520_L150",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func7_func7_pg_530_L153",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func7_func7_pg_540_L156",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func7_func7_pg_550_L159",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func9_func9_100_L17",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func9_func9_110_L20",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func9_func9_130_L26",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func9_func9_131_L29",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func9_func9_132_L32",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func9_func9_133_L35",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func9_func9_134_L38",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func9_func9_140_L41",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func9_func9_200_L52",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func9_func9_210_L55",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func9_func9_220_L58",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func9_func9_300_L62",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func_func_16_2_L799",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func_func_1_8_L74",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func_func_1_9_L77",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func_func_21_9_L1059",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func_func_22_23_L1141",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func_func_31_1_L1429",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func_func_33_10_L1480",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func_func_34_10_L1505",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func_func_35_100_L1526",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func_func_35_200_L1533",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func_func_38_100_L1572",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func_func_39_101_L1581",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/func_func_9_14_L546",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/instr_instr_1_60_L241",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/instr_instr_1_61_L244",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/instr_instr_1_62_L247",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/instr_instr_2_0_L262",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/instr_instr_2_2_L271",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_10_L532",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_11_L535",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_12_L538",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_13_L541",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_14_L544",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_15_L547",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_16_L550",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_17_L553",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_18_L556",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_19_L559",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_1_L505",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_20_L562",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_21_L565",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_22_L568",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_23_L571",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_24_L574",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_25_L577",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_26_L580",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_27_L583",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_28_L586",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_29_L589",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_2_L508",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_30_L592",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_31_L595",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_32_L598",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_33_L601",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_34_L604",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_35_L607",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_36_L610",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_37_L613",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_38_L616",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_39_L619",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_3_L511",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_40_L622",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_41_L625",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_42_L628",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_43_L631",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_44_L634",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_45_L637",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_46_L640",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_47_L643",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_48_L646",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_49_L649",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_4_L514",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_50_L652",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_51_L655",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_52_L658",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_53_L661",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_54_L664",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_55_L667",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_56_L670",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_57_L673",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_58_L676",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_59_L679",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_5_L517",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_60_L682",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_61_L685",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_62_L688",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_63_L691",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_64_L694",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_65_L697",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_66_L700",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_67_L703",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_68_L706",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_69_L709",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_6_L520",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_70_L712",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_71_L715",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_72_L718",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_73_L721",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_74_L724",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_75_L727",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_76_L730",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_77_L733",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_78_L736",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_79_L739",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_7_L523",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_80_L742",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_81_L745",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_82_L748",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_83_L751",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_84_L754",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_85_L757",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_86_0_L760",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_86_1_L763",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_86_2_L766",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_86_3_L769",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_86_4_L772",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_86_5_L775",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_86_6_L778",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_87_L781",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_88_L784",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_89_L787",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_8_L526",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_90_L790",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_91_L793",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_92_L796",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_93_L799",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_94_L802",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_95_L805",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_10_9_L529",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_12_100_L838",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_13_100_L884",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_14_100_L909",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_14_110_L912",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_14_120_L915",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_14_130_L918",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_14_140_L921",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_14_150_L924",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_14_160_L927",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_14_170_L930",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_15_100_L940",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_15_110_L943",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_15_120_L946",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_15_130_L949",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_16_10_L957",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_16_20_L960",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_16_30_L963",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_17_1_L968",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_18_1_L977",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_18_2_L980",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_18_3_L983",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_18_4_L986",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_19_1_L998",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_1_1_00_L18",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_1_1_01_L21",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_1_1_02_L25",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_1_1_03_L29",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_1_2_L33",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_1_4_L42",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_1_4b_L53",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_20_1_L1013",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_20_3_L1019",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_21_18_L1085",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_21_20_L1091",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_21_26_L1109",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_21_27_L1113",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_21_4_L1043",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_22_1_L1121",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_22_2_L1132",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_23_1_L1147",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_23_2_L1151",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_26_1_L1195",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_26_2_L1202",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_2_1_L65",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_2_1b_L68",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_2_2_2_L77",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_2_2_2b_L80",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_2_2_3_L83",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_2_2_3b_L86",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_2_5_L95",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_3_1_L99",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_3_1b_L102",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_3_2_L105",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_3_2b_L108",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_3_3_L111",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_3_3b_L114",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_3_4_L117",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_3_4b_L120",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_4_1_L135",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_4_4_L153",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_4_9_L172",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_5_10_L386",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_5_11_L391",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_5_1_L192",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_6_10_L422",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_6_11_L425",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_6_1_L395",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_6_2_L398",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_6_3_L401",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_6_4_L404",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_6_5_L407",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_6_6_L410",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_6_7_L413",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_6_8_L416",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_6_9_L419",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_8_1_L450",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_8_1b_L457",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_8_3_L470",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_8_4_L473",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_9_1_L481",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_9_2_L484",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_9_3_L487",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json101_json101_9_4_L490",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_100_L21",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_100b_L24",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_110_2_L30",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_110_3_L33",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_110_3_L36",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_110_L27",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_120_2_L42",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_120_3_L45",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_120_4_L48",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_120_L39",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_130_L51",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_130b_L54",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_140_L57",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_140b_L60",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_1500_L702",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_1501_L709",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_150_L63",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_150b_L66",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_160_2_L72",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_160_3_L75",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_160_4_L78",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_160_L69",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_170_L81",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_170b_L84",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_180_2_L90",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_180_3_L93",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_180_4_L96",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_180_L87",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_1820_L829",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_1831_L838",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_190_L99",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_190b_L102",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_191_L105",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_191b_L108",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_200_L111",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_200b_L114",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_210_L117",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_210b_L120",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_220_L123",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_230b_L129",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_240_L132",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_240b_L135",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_250_2_L141",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_250_3_L144",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_250_4_L147",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_250_L138",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_260_2_L153",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_260_3_L156",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_260_4_L159",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_260_L150",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_270_2_L165",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_270_3_L168",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_270_4_L171",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_270_L162",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_280_L174",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_280b_L177",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_290_2_L183",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_290_3_L186",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_290_4_L189",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_290_L180",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_300_L192",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_300b_L195",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_310_2_L201",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_310_3_L204",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_310_43_L207",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_310_L198",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_320_2_L213",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_320_3_L216",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_320_4_L219",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_320_L210",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_330_2_L225",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_330_3_L228",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_330_4_L231",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_330_L222",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_340_2_L237",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_340_3_L240",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_340_4_L243",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_340_L234",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_350_2_L249",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_350_3_L252",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_350_4_L255",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_350_L246",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_360_2_L261",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_360_3_L264",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_360_4_L267",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_360_L258",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_370_2_L273",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_370_3_L276",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_370_4_L279",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_370_L270",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_380_2_L285",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_380_3_L288",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_380_4_L291",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_380_L282",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_390_2_L297",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_390_3_L300",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_390_4_L303",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_390_5_L306",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_390_6_L309",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_390_7_L312",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_390_8_L315",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_390_L294",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_400_2_L321",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_400_3_L324",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_400_4_L327",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_400_5_L330",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_400_6_L333",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_400_7_L336",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_400_8_L339",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_400_L318",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_410_L342",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_410b_L345",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_420_L348",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_420b_L351",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_430_2_L357",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_430_3_L360",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_430_4_L363",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_430_L354",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_440_2_L369",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_440_3_L372",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_440_4_L375",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_440_L366",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_445_1_L378",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_445_2_L381",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_445_3_L384",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_445_4_L387",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_445_5_L390",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_445_6_L393",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_445_7_L396",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_450_2_L402",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_450_3_L405",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_450_4_L408",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_450_L399",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_460_2_L414",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_460_3_L417",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_460_4_L420",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_460_L411",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_470_2_L426",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_470_3_L429",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_470_4_L432",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_470_L423",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_480_2_L438",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_480_3_L441",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_480_4_L444",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_480_L435",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_490_2_L450",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_490_3_L453",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_490_4_L456",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_490_L447",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_500_2_L462",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_500_3_L465",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_500_4_L468",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_500_L459",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_510_L471",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_510b_L474",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_520_L477",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_520b_L480",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_530_L483",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_530b_L486",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_540_L489",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_540b_L492",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_550_L495",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_550b_L498",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_560_L501",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_560b_L504",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_570_L507",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_570b_L510",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_580_L513",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_580b_L516",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_590_L519",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_590b_L522",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_600_L525",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_600b_L528",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_610_L531",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json102_json102_620_L534",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json103_json103_100_L17",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json103_json103_300_L70",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json104_401_L171",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json104_json104_100_L19",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json104_json104_101_L33",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json104_json104_102_L47",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json104_json104_103_L61",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json104_json104_110_L78",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json104_json104_200_L97",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json104_json104_210_L100",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json104_json104_220_L103",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json104_json104_221_L106",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json104_json104_222_L109",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json104_json104_300_L114",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json104_json104_300a_L117",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json104_json104_301_L120",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json104_json104_302_L123",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json104_json104_303_L126",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json104_json104_304_L129",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json104_json104_305_L132",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json104_json104_306_L135",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json104_json104_307_L138",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json104_json104_308_L141",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json104_json104_309_L144",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json104_json104_310_L147",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json104_json104_310a_L150",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json104_json104_311_L153",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json104_json104_312_L156",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json104_json104_313_L159",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json104_json104_320_L165",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json107_1_3_L61",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json107_1_4_L64",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json107_1_5_L67",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json107_1_6_L70",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json107_1_8_L76",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json109_1_1_L19",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json109_1_2_L22",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json109_1_3_L25",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json109_1_4_L28",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json109_1_5_L31",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json109_1_6_L34",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json109_1_7_L37",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json109_1_8_L40",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json109_1_9_L43",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json501_13_1_L305",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json501_1_11_L89",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json501_1_1_L64",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json501_1_2_L68",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json501_2_1_L96",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json501_3_1_L113",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json501_4_1_L130",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json501_4_2_L134",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json501_5_1_L141",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json501_5_2_L145",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json501_5_3_L148",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json501_5_4_L151",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json501_5_5_L154",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json501_6_1_L162",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json501_6_2_L165",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json501_6_3_L168",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json501_6_4_L171",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json501_6_5_L174",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json501_6_6_L177",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json501_6_7_L180",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json501_6_8_L183",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json501_8_10_L242",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json501_8_11_L245",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json501_8_1_L212",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json501_8_2_L215",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json501_8_3_L218",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json501_8_3_L221",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json501_8_4_L224",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json501_8_5_L227",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json501_8_6_L230",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json501_8_7_L233",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json501_8_8_L236",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json501_8_9_L239",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json501_9_1_L253",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json501_9_2_L256",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json501_9_3_L259",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json501_9_4_L262",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/json502_5_3_L76",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/printf2_printf2_1_10_L58",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/printf2_printf2_1_11_L61",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/printf2_printf2_1_12_L64",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/printf2_printf2_1_12_L70",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/printf2_printf2_1_13_L73",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/printf2_printf2_1_1_L29",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/printf2_printf2_1_2_L34",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/printf2_printf2_1_3_L37",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/printf2_printf2_1_4_L40",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/printf2_printf2_1_5_L43",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/printf2_printf2_1_6_L46",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/printf2_printf2_1_7_L49",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/printf2_printf2_1_8_L52",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/printf2_printf2_1_9_L55",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/printf2_printf2_2_1_L80",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/printf2_printf2_3_1_L106",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/printf2_printf2_3_2_L109",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/printf2_printf2_3_3_L112",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/printf2_printf2_3_4_L115",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/printf2_printf2_3_5_L118",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/printf2_printf2_4_10_L150",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/printf2_printf2_4_1_L123",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/printf2_printf2_4_2_L126",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/printf2_printf2_4_3_L129",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/printf2_printf2_4_4_L132",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/printf2_printf2_4_5_L135",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/printf2_printf2_4_6_L138",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/printf2_printf2_4_7_L141",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/printf2_printf2_4_8_L144",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/printf2_printf2_4_9_L147",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/printf2_printf2_5_100_L155",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/printf2_printf2_5_101_L158",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/printf2_printf2_5_102_L161",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/printf2_printf2_5_103_L164",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/printf2_printf2_5_104_L167",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/printf2_printf2_5_104_L173",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/printf2_printf2_5_105_L170",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/printf2_printf2_5_106_L176",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/printf2_printf2_6_100_L181",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/printf2_printf2_6_101_L184",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/printf2_printf2_6_102_L187",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/printf2_printf2_6_103_L190",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/printf2_printf2_6_104_L193",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/printf2_printf2_6_105_L196",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/printf2_printf2_6_106_L199",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/printf2_printf2_6_107_L202",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/printf2_printf2_6_108_L205",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/printf2_printf2_6_109_L208",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/printf_printf_16_1_L3784",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/printf_printf_18_1_L3837",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/printf_printf_19_1_L3847",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/printf_printf_19_2_L3850",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/printf_printf_19_3_L3853",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/printf_printf_20_10_L3891",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/printf_printf_20_11_L3895",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/printf_printf_20_12_L3898",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/printf_printf_20_13_L3901",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/printf_printf_20_14_L3904",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/printf_printf_20_15_L3907",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/printf_printf_20_16_L3910",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/printf_printf_20_17_L3913",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/printf_printf_20_18_L3916",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/printf_printf_20_19_L3919",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/printf_printf_20_20_L3922",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/printf_printf_20_21_L3925",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/printf_printf_20_22_L3928",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/printf_printf_20_23_L3931",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/printf_printf_20_24_L3934",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/printf_printf_20_25_L3937",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/printf_printf_20_26_L3940",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/printf_printf_20_27_L3943",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/printf_printf_20_9_L3883",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_affinity2",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_affinity3",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_aggerror",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_aggorderby",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_alter3",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_alter4",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_alterauth",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_alterauth2",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_altertrig",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_analyze",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_analyze4",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_analyze7",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_analyzeC",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_atof1",
+      "budget": 0.8
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_atof2",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_attach3",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_autoindex2",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_autoindex3",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_autoindex5",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_badutf",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_basexx1",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_bigrow",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_blob",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_bloom1",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_boundary1",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_boundary2",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_boundary3",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_boundary4",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_btree02",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_cachespill",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_capi3d",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_changes",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_changes2",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_check",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_coalesce",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_collate2",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_collate3",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_collate5",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_collate6",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_collate8",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_collateA",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_collateB",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_colname",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_columncount",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_conflict",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_conflict2",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_conflict3",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_conflict4",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_contrib01",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_cost",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_countofview",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_cse",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_decimal",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_delete",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_delete2",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_delete3",
+      "budget": 0.2
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_delete4",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_descidx2",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_descidx3",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_distinct",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_distinct2",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_distinctagg",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_e_blobbytes",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_e_blobopen",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_e_blobwrite",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_e_changes",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_e_delete",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_e_dropview",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_e_insert",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_e_reindex",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_e_resolve",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_e_select2",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_e_totalchanges",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_e_update",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_emptytable",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_enc3",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_eqp2",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_errmsg",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_existsexpr2",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_extension01",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_filefmt",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_filter1",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_filter2",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_fkey3",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_fkey4",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_fkey5",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_fkey6",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_fkey7",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_fts3aa",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_fts3ab",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_fts3ad",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_fts3ae",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_fts3af",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_fts3ag",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_fts3ah",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_fts3ai",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_fts3aj",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_fts3ak",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_fts3al",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_fts3am",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_fts3an",
+      "budget": 0.7
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_fts3ao",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_fts3atoken2",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_fts3aux2",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_fts3b",
+      "budget": 0.2
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_fts3comp1",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_fts3corrupt3",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_fts3drop",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_fts3e",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_fts3f",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_fts3first",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_fts3integrity",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_fts3join",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_fts3misc",
+      "budget": 0.2
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_fts3near",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_fts3prefix2",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_fts3sort",
+      "budget": 0.6
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_fts3tok1",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_fts4intck1",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_fts4lastrowid",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_fts4noti",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_fts4upfrom",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_fts_9fd058691",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_fuzz",
+      "budget": 67.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_fuzz2",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_fuzz4",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_fuzz_oss1",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_fuzzer1",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_fuzzer2",
+      "budget": 1.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_having",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_hexlit",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_ieee754",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_in",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_in3",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_in4",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_in5",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_in7",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_incrvacuum3",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_index2",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_index3",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_index4",
+      "budget": 0.2
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_index6",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_index8",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_index9",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_indexA",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_indexedby",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_indexexpr1",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_indexexpr2",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_indexexpr3",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_insert",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_insert2",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_insert5",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_istrue",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_join",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_join4",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_join5",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_join6",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_join7",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_join8",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_join9",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_joinA",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_joinB",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_joinC",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_joinD",
+      "budget": 0.6
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_joinE",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_joinF",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_joinH",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_joinI",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_like2",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_literal",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_literal2",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_manydb",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_memjournal",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_memjournal2",
+      "budget": 0.4
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_minmax4",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_misc2",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_misc3",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_misc5",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_nan",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_notnull",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_notnull2",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_null",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_nulls2",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_numcast",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_numindex1",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_offset1",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_openv2",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_orderby3",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_orderby4",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_orderby5",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_orderby6",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_orderby7",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_orderby8",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_orderby9",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_orderbyA",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_orderbyB",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_ovfl",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_pager4",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_percentile",
+      "budget": 0.6
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_pragma5",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_prefixes",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_progress",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_pushdown",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_queryonly",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_quickcheck",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_randexpr1",
+      "budget": 0.3
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_readonly",
+      "budget": 0.3
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_regexp2",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_reindex",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_resolver01",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_rollback2",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_round1",
+      "budget": 1.4
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_rowhash",
+      "budget": 0.4
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_rowvalue",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_rowvalue2",
+      "budget": 0.2
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_rowvalue3",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_rowvalue4",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_rowvalue6",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_rowvalue7",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_rowvalue8",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_rowvalue9",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_rowvalueA",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_savepoint5",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_savepoint6",
+      "budget": 15.2
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_schema5",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_schema6",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_securedel",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_seekscan1",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_select1",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_select3",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_select5",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_select6",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_select8",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_selectA",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_selectC",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_selectF",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_selectH",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_sidedelete",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_skipscan2",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_skipscan3",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_sorterref",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_spellfix",
+      "budget": 0.3
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_spellfix2",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_starschema1",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_stmtrand",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_stmtvtab1",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_strict2",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_subselect",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_swarmvtab2",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tableopts",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_temptable",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_temptable3",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_timediff1",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt1435",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt1443",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt1444",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt1449",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt1473",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt1501",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt1514",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt1536",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt1537",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt1567",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt2141",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt2192",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt2251",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt2285",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt2339",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt2391",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt2450",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt2640",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt2643",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt2767",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt2817",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt2822",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt2832",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt2920",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt2927",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt2942",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt3201",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt3292",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt3298",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt3334",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt3346",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt3357",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt3419",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt3424",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt3442",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt3461",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt3493",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt3508",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt3522",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt3527",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt3541",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt3554",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt3581",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt35xx",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt3630",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt3718",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt3731",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt3757",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt3761",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt3762",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt3773",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt3791",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt3810",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt3824",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt3832",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt3838",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt3841",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt3879",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt3911",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt3922",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt3929",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt3935",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt3992",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt3997",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt_02a8e81d44",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt_26ff0c2d1e",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt_2a5629202f",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt_2ea2425d34",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt_31338dca7e",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt_385a5b56b9",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt_3998683a16",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt_3a77c9714e",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt_4a03edc4c8",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt_4c86b126f2",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt_4dd95f6943",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt_4ef7e3cfca",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt_54844eea3f",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt_5e10420e8d",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt_5ee23731f",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt_6bfb98dfc0",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt_752e1646fc",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt_78e04e52ea",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt_7a31705a7e6",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt_7bbfb7d442",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt_80e031a00f",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt_8454a207b9",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt_868145d012",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt_8c63ff0ec",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt_91e2e8ba6f",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt_99378177930f87bd",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt_9a8b09f8e6",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt_a7b7803e",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt_a8a0d2996a",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt_b1d3a2e531",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt_b351d95f9",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt_b72787b1",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt_b75a9ca6b0",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt_ba7cbfaedc",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt_c48d99d690",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt_c694113d5",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt_d11f09d36e",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt_d635236375",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt_d82e3f3721",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt_f67b41381a",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt_f777251dc7a",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt_f973c7ac31",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt_fa7bf5ec",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tkt_fc7bd6358f",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tokenize",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_tpch01",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_trace2",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_trace3",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_trans2",
+      "budget": 1.8
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_trans3",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_trigger3",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_trigger4",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_trigger5",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_trigger6",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_trigger7",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_trigger8",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_triggerB",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_triggerD",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_triggerF",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_triggerG",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_triggerupfrom",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_trustschema1",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_types2",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_unhex",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_unionall2",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_unionvtab",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_unique",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_unique2",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_unordered",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_update",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_update2",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_upfrom1",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_upfrom2",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_upfrom3",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_upfrom4",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_upsert1",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_upsert3",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_upsert4",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_upsert5",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_vacuum2",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_vacuum4",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_values",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_view2",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_view3",
+      "budget": 0.4
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_vtabdistinct",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_vtabrhs1",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_where5",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_where6",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_where7",
+      "budget": 0.2
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_where9",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_whereB",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_whereC",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_whereE",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_whereG",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_whereH",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_whereI",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_whereK",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_whereM",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_whereN",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_widetab1",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_window2",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_window3",
+      "budget": 0.5
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_window4",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_window6",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_window7",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_window8",
+      "budget": 0.2
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_window9",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_windowA",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_windowB",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_windowD",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_windowE",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_windowerr",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_with1",
+      "budget": 0.9
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_with3",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_with4",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_with5",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_without_rowid1",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_without_rowid2",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_without_rowid5",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_without_rowid6",
+      "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractor.Replay/test_without_rowid7",
+      "budget": 0.1
+    }
+  ]
+}

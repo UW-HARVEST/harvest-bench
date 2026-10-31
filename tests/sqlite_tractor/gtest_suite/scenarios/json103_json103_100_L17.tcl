@@ -1,0 +1,12 @@
+source $::suite_root/glue/tester.tcl
+do_execsql_test json103-100 {
+  CREATE TABLE t1(a,b,c);
+  WITH RECURSIVE c(x) AS (VALUES(1) UNION SELECT x+1 FROM c WHERE x<100)
+  INSERT INTO t1(a,b,c) SELECT x, x%3, printf('n%d',x)  FROM c;
+  UPDATE t1 SET a='orange' WHERE rowid=39;
+  UPDATE t1 SET a=32.5 WHERE rowid=31;
+  UPDATE t1 SET a=x'303132' WHERE rowid=29;
+  UPDATE t1 SET a=NULL WHERE rowid=37;
+  SELECT json_group_array(a) FROM t1 WHERE a<0 AND typeof(a)!='blob';
+} {{[]}}
+finish_test

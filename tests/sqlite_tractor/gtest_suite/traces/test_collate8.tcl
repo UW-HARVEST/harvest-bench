@@ -1,0 +1,1 @@
+set expected_assertions {collate8-1.1 collate8-1.2 collate8-1.3 collate8-1.4 collate8-1.5 collate8-1.11 collate8-1.12 collate8-1.13 collate8-1.14 collate8-1.15 collate8-2.1 collate8-2.2 collate8-2.3 collate8-2.4 collate8-2.5 collate8-2.6 collate8-2.7 collate8-2.8 collate8-3.1 collate8-3.2 collate8-3.3 collate8-3.4 collate8-3.5}

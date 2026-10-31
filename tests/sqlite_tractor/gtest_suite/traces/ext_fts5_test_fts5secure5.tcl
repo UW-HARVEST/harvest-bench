@@ -1,0 +1,1 @@
+set expected_assertions {fts5secure5-1.0 fts5secure5-1.1 fts5secure5-1.2 fts5secure5-1.3 fts5secure5-1.4 fts5secure5-1.5 fts5secure5-1.6 fts5secure5-1.7 fts5secure5-2.0 fts5secure5-2.1 fts5secure5-2.2a fts5secure5-2.2b fts5secure5-2.3a fts5secure5-2.3b fts5secure5-2.4a fts5secure5-2.4b fts5secure5-3.0 fts5secure5-3.1 fts5secure5-3.2 fts5secure5-4.0 4.1}

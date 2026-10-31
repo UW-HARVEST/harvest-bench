@@ -1,0 +1,1 @@
+set expected_assertions {fts5fuzz1-1.1 fts5fuzz1-2.1 fts5fuzz1-2.2.1 fts5fuzz1-2.2.2 fts5fuzz1-2.2.3 fts5fuzz1-2.2.4 fts5fuzz1-2.3 fts5fuzz1-2.4 fts5fuzz1-2.5 fts5fuzz1-2.6 fts5fuzz1-2.7 fts5fuzz1-2.8 fts5fuzz1-3.2 fts5fuzz1-4.1}

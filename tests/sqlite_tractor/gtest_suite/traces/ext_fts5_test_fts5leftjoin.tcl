@@ -1,0 +1,1 @@
+set expected_assertions {fts5leftjoin-1.0 fts5leftjoin-1.1 fts5leftjoin-1.2 fts5leftjoin-1.3 fts5leftjoin-1.4 fts5leftjoin-2.0 fts5leftjoin-2.1 fts5leftjoin-2.2 fts5leftjoin-2.3 fts5leftjoin-3.0 fts5leftjoin-3.1}

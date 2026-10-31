@@ -1,0 +1,1 @@
+set expected_assertions {fts5contentless5-1.0 fts5contentless5-1.01 fts5contentless5-1.1 fts5contentless5-1.2 fts5contentless5-1.3 fts5contentless5-1.4 fts5contentless5-1.5 fts5contentless5-1.6 fts5contentless5-1.7 fts5contentless5-2.0 2.1 2.2 fts5contentless5-2.3}

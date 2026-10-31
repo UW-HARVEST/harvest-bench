@@ -1,0 +1,1 @@
+set expected_assertions {fts5version-1.1 fts5version-1.2 fts5version-1.3 fts5version-1.4 1.5 1.6 1.7 1.8 fts5version-1.10 fts5version-1.11 fts5version-1.11 fts5version-1.12 fts5version-2.0 fts5version-2.1 fts5version-2.2 fts5version-2.3 fts5version-2.4}

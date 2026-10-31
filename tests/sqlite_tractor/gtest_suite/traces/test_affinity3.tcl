@@ -1,0 +1,1 @@
+set expected_assertions {affinity3-100 affinity3-110 affinity3-111 affinity3-120 affinity3-121 affinity3-122 affinity3-130 affinity3-131 affinity3-140 affinity3-141 affinity3-142 affinity3-200 affinity3-210 affinity3-220 affinity3-250 affinity3-260}

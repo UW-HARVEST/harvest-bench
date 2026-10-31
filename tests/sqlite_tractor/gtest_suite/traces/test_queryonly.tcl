@@ -1,0 +1,1 @@
+set expected_assertions {queryonly-1.1 queryonly-1.2 queryonly-1.3 queryonly-1.4 queryonly-1.5 queryonly-1.6 queryonly-1.7 queryonly-1.8 queryonly-1.9 queryonly-1.10 queryonly-1.11 queryonly-2.2 queryonly-2.3 queryonly-2.4 queryonly-2.5}

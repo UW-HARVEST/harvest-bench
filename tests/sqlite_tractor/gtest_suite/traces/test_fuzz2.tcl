@@ -1,0 +1,1 @@
+set expected_assertions {fuzz2-1.1 fuzz2-2.0 fuzz2-2.1 fuzz2-2.2 fuzz2-2.3 fuzz2-2.4 fuzz2-2.5 fuzz2-2.6 fuzz2-2.7 fuzz2-2.8 fuzz2-2.9 fuzz2-2.10 fuzz2-2.11 fuzz2-2.12 fuzz2-3.0 fuzz2-3.1 fuzz2-3.2 fuzz2-4.0 fuzz2-4.1 fuzz2-5.0 fuzz2-5.1 fuzz2-5.2 fuzz2-5.3 fuzz2-5.4 fuzz2-5.5 fuzz2-6.1 fuzz2-6.2 fuzz2-6.3 fuzz2-6.4a fuzz2-6.4b fuzz2-7.1 fuzz2-7.2}

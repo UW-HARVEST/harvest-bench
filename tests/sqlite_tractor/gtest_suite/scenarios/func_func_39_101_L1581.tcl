@@ -1,0 +1,9 @@
+source $::suite_root/glue/tester.tcl
+do_execsql_test func-39.101 {
+  WITH RECURSIVE c(n) AS (VALUES(1) UNION ALL SELECT n+1 FROM c WHERE n<1)
+  SELECT sum(1.7976931348623157e308),
+         avg(1.7976931348623157e308),
+         total(1.7976931348623157e308)
+    FROM c;
+} {1.79769313486232e+308 1.79769313486232e+308 1.79769313486232e+308}
+finish_test

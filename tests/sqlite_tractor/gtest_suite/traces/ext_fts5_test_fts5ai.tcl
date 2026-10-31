@@ -1,0 +1,1 @@
+set expected_assertions {fts5ai-full-1.0 fts5ai-full-1.1 fts5ai-full-1.2 fts5ai-full-1.3 fts5ai-col-1.0 fts5ai-col-1.1 fts5ai-col-1.2 fts5ai-col-1.3 fts5ai-none-1.0 fts5ai-none-1.1 fts5ai-none-1.2 fts5ai-none-1.3}

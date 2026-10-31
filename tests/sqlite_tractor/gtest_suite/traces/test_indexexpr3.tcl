@@ -1,0 +1,1 @@
+set expected_assertions {indexexpr3-1.0 indexexpr3-1.1 indexexpr3-1.2 indexexpr3-1.3 indexexpr3-1.4 indexexpr3-1.5 indexexpr3-1.6 indexexpr3-2.0 indexexpr3-2.1 indexexpr3-2.2 indexexpr3-2.3 indexexpr3-2.4 indexexpr3-2.5}

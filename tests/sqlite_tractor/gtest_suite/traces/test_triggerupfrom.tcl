@@ -1,0 +1,1 @@
+set expected_assertions {triggerupfrom-1.0 triggerupfrom-1.1 triggerupfrom-1.2 triggerupfrom-1.3 triggerupfrom-2.0 triggerupfrom-2.1 triggerupfrom-2.2 triggerupfrom-2.3 triggerupfrom-2.4 triggerupfrom-3.0 triggerupfrom-4.0 triggerupfrom-4.1-hc-disabled triggerupfrom-4.2 triggerupfrom-4.3}

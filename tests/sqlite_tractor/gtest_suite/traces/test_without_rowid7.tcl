@@ -1,0 +1,1 @@
+set expected_assertions {without_rowid7-1.0 without_rowid7-1.1 without_rowid7-2.0 without_rowid7-2.1 without_rowid7-2.2a without_rowid7-2.2b without_rowid7-2.3a without_rowid7-2.3b without_rowid7-2.4 without_rowid7-3.0 without_rowid7-3.1.1 3.1.2 without_rowid7-3.2.1 3.2.2 without_rowid7-3.3.1 3.3.2 3.4.1 3.4.2 3.5.1 3.5.2 without_rowid7-3.6}

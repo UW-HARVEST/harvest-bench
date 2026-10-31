@@ -1,0 +1,37 @@
+{
+  "date": "2026-10-26",
+  "method": "installed C2Rust mechanical translation of fixed sqlite_tractor configuration",
+  "c2rust": "0.22.1",
+  "toolchain": "nightly-2025-05-18",
+  "rustc": "1.89.0-nightly (777d37277 2025-05-17)",
+  "translation_units": 130,
+  "generated_rust_engine_source_edits": 0,
+  "required_public_exports": 368,
+  "missing_public_exports": [],
+  "sqlite_c_or_system_sqlite_dependency": false,
+  "platform_dependencies": [
+    "libm",
+    "libz",
+    "libgcc_s",
+    "libc"
+  ],
+  "rust_library_sha256": "be914047b19a73b523007c355e37019253f7e5acce669e9b151fc910c8d62b4d",
+  "test_suite_unchanged": true,
+  "test_budgets_unchanged": true,
+  "tests": 1188,
+  "passed": 1188,
+  "failed": 0,
+  "skipped": 0,
+  "results_sha256": "b3e0e8fd2cc97ba3613a06eb4b93928730a57e63225d3ce48a4dbd10fff16d6e",
+  "scenario_manifest_sha256": "47ba3ab3dab89eb9b4bad09fb133804d3058591fd34f95cbed3247ae31a8ca8e",
+  "reproduction_script": "tools/c2rust/reproduce.py",
+  "build_command": "cargo +nightly-2025-05-18 build --release --manifest-path out_sqlite_tractor_c2rust/rust/Cargo.toml",
+  "run_command": "harvest-bench/target/release/harvest-bench run --suite harvest-bench/tests/sqlite_tractor/gtest_suite --lib /absolute/path/to/libsqlite_tractor_c2rust.so --build-dir /separate/gtest/build --json results.json",
+  "limitations": [
+    "mechanically translated unsafe Rust, not an idiomatic or safe-Rust rewrite",
+    "requires the installed compatible nightly for historical C2Rust C-variadic APIs",
+    "verification covers the selected fixed configuration and benchmark scenarios"
+  ],
+  "reproduction_checked_from_fresh_directory": true,
+  "reproduced_library_byte_identical": true
+}

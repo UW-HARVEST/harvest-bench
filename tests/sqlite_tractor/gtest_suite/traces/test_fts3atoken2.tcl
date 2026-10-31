@@ -1,0 +1,1 @@
+set expected_assertions {fts3atoken2-1.1.1 fts3atoken2-1.1.2 fts3atoken2-1.2.1 fts3atoken2-1.2.2 fts3atoken2-1.2.3 fts3atoken2-1.2.4 fts3atoken2-1.3.1 fts3atoken2-1.3.2 fts3atoken2-1.4.1 fts3atoken2-1.4.2 fts3atoken2-1.4.3 fts3atoken2-1.4.4}

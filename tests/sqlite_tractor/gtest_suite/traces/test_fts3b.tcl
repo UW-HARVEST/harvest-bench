@@ -1,0 +1,1 @@
+set expected_assertions {fts3b-1.1 fts3b-1.2 fts3b-2.1 fts3b-2.2 fts3b-3.1 fts3b-3.2 fts3b-3.3 fts3b-4.1 fts3b-4.2 fts3b-4.3 fts3b-4.4 fts3b-4.5 fts3b-4.6 fts3b-4.7 fts3b-4.8 fts3b-4.9 fts3b-4.10 fts3b-4.11 fts3b-4.12 fts3b-4.13}

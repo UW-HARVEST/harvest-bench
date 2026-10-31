@@ -1,0 +1,1 @@
+set expected_assertions {strict2-1.1 strict2-1.2 strict2-1.3 strict2-1.4 strict2-1.5 strict2-1.6 strict2-1.7 strict2-1.8 strict2-1.13 strict2-1.14 strict2-1.15 strict2-1.16 strict2-1.17 strict2-1.18 strict2-1.23 strict2-1.24 strict2-1.25 strict2-1.33 strict2-1.34 strict2-1.35 strict2-1.43 strict2-1.44 strict2-1.45 strict2-2.0 strict2-3.0}

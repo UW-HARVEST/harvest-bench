@@ -1,0 +1,1 @@
+set expected_assertions {fts5unindexed-1.1 fts5unindexed-1.2 fts5unindexed-1.3 fts5unindexed-1.4 fts5unindexed-1.5 fts5unindexed-1.6 fts5unindexed-1.7 fts5unindexed-1.8 fts5unindexed-1.9 fts5unindexed-1.10 fts5unindexed-1.11 fts5unindexed-1.12 fts5unindexed-1.13 fts5unindexed-1.14 fts5unindexed-2.1 fts5unindexed-2.2 fts5unindexed-3.1 fts5unindexed-3.2}

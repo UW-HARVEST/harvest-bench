@@ -24,6 +24,7 @@ tests/            One directory per test program
   mujs/
   pcre2/
   zstd/
+  sqlite_tractor/
   ...
 runner/           The runner: a Rust library and the harvest-bench CLI
 ```
@@ -114,6 +115,7 @@ the library under test ends the whole run and GoogleTest writes no report.
   offline builds, pre-populate the source once and pass
   `-DFETCHCONTENT_SOURCE_DIR_GOOGLETEST=/path/to/googletest-1.17.0`.
 - Rust 1.99 for the runner (pinned in `rust-toolchain.toml`).
+- Tcl 8.6 runtime and development headers for `sqlite_tractor`.
 - Linux. The aggregate suites use `fork`, and the runner assumes ELF shared
   libraries.
 

@@ -1,0 +1,1 @@
+set expected_assertions {vacuum2-1.1 vacuum2-2.1 vacuum2-2.2 vacuum2-3.1 vacuum2-3.2 vacuum2-3.3 vacuum2-3.4 vacuum2-3.5 vacuum2-3.6 vacuum2-3.7 vacuum2-3.13 vacuum2-3.14 vacuum2-3.15 vacuum2-3.16 vacuum2-3.17 vacuum2-4.1 vacuum2-4.2 vacuum2-4.3 vacuum2-4.4 vacuum2-4.5 vacuum2-4.6 vacuum2-4.7 vacuum2-5.1 vacuum2-5.2 vacuum2-5.3 vacuum2-5.4 vacuum2-6.0 6.1 vacuum2-6.2 6.3}
