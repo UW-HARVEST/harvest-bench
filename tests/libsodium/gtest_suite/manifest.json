@@ -523,6 +523,5 @@
     }
   ],
   "min_seconds": 10,
-  "version": 1,
   "note": "Every libsodium upstream driver uses cmptest.h, which relies on file-scope state (fp_res, guard page, hardcoded buffers) and writes a <name>.res scratch file. Drivers must therefore each run in their own process (mode:case). Do NOT group them into suite-mode entries."
 }

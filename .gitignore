@@ -6,3 +6,5 @@ tests/*/build/
 tests/*/c_build/
 tests/*/gtest_build/
 *.res
+# Build trees of the runner's own fixtures
+runner/fixtures/*/build/

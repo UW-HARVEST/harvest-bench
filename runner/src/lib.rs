@@ -1,13 +1,19 @@
-//! Harvest Bench runner: builds a test's GoogleTest suite against a shared
-//! library under test and executes it according to the suite's invocation
-//! manifest.
+//! Harvest Bench runner: builds a test's GoogleTest suite against the
+//! artifacts under test (a shared library, an executable, or both) and
+//! executes it according to the suite's invocation manifest.
 //!
 //! # Suite contract
-//! - `gtest_suite/CMakeLists.txt` accepts `-DTEST_LIB_PATH=<abs .so>` (the
-//!   library under test) and is otherwise self-contained.
+//! - `gtest_suite/CMakeLists.txt` accepts one absolute path per artifact the
+//!   program declares: `-DTEST_LIB_PATH=<.so>` (the library under test) and
+//!   `-DTEST_BIN_PATH=<executable>` (the executable under test). With the
+//!   executable comes `-DTEST_BIN_NAME=<name>`, the manifest's
+//!   `program.bin.name`, which the suite passes to it as `argv[0]`. It is
+//!   otherwise self-contained.
 //! - The test executable target is named `harvest_gtest`.
-//! - An optional `gtest_suite/manifest.json` declares the process-level
-//!   invocation plan (see [`Manifest`]).
+//! - An optional `gtest_suite/manifest.json` declares the program (see
+//!   [`ProgramSpec`]; absent = library only), the type of each test (see
+//!   [`TestTypeSpec`]) and the process-level invocation plan (see
+//!   [`Manifest`]).
 //!
 //! # Execution model
 //! Tests are enumerated with `--gtest_list_tests`, then executed according to
@@ -23,7 +29,17 @@
 //!
 //! The soft deadline of the current invocation is exported to the suite as
 //! `HARVEST_TEST_SOFT_TIMEOUT_SECS`; aggregate suites use it to bound their
-//! recording children.
+//! recording children, and `harvest_bin.h` to bound each run of the
+//! executable. Each invocation also gets a new scratch directory, exported as
+//! `HARVEST_TEST_TMPDIR` and removed afterwards (see [`Scratch`]).
+
+mod cmake_api;
+mod program;
+
+pub use program::{
+    resolve_artifacts, Artifacts, BinSpec, Dimension, LibSpec, ProgramSpec, ResolvedArtifacts,
+    TestTypeSpec,
+};
 
 use std::fs;
 use std::path::{Path, PathBuf};
@@ -40,6 +56,10 @@ pub const GTEST_BINARY_NAME: &str = "harvest_gtest";
 
 /// Name of the invocation-plan manifest inside a suite directory.
 pub const MANIFEST_FILE: &str = "manifest.json";
+
+/// Directory, inside a suite's build directory, that holds the scratch
+/// directories of its invocations.
+const SCRATCH_PARENT_DIR: &str = "harvest_tmp";
 
 /// Grace the runner waits beyond an invocation's budget before SIGKILLing it.
 const KILL_GRACE_SECS: u64 = 5;
@@ -66,6 +86,7 @@ pub enum InvocationMode {
 
 /// One planned process-level invocation.
 #[derive(serde::Deserialize, Clone, Debug)]
+#[serde(deny_unknown_fields)]
 pub struct InvocationSpec {
     pub mode: InvocationMode,
     /// gtest filter expression (`:`-separated positive patterns, `*`/`?`
@@ -83,20 +104,28 @@ pub struct InvocationSpec {
 /// Tests are assigned to the first entry whose `filter` matches (manifest
 /// order); unmatched tests fall back to one process per test with the
 /// caller's fallback timeout.
+///
+/// Unknown fields are errors at every level, so a misspelled key cannot
+/// silently change what a run tests.
 #[derive(serde::Deserialize, Debug)]
+#[serde(deny_unknown_fields)]
 pub struct Manifest {
-    #[serde(default = "default_version")]
-    pub version: u32,
     #[serde(default = "default_factor")]
     pub default_factor: f64,
     #[serde(default = "default_min_seconds")]
     pub min_seconds: f64,
     #[serde(default)]
     pub invocations: Vec<InvocationSpec>,
-}
-
-fn default_version() -> u32 {
-    1
+    /// The program under test. Absent: library only.
+    #[serde(default)]
+    pub program: Option<ProgramSpec>,
+    /// What each test exercises. Tests are assigned to the first
+    /// matching entry; unmatched tests get [`ProgramSpec::default_test_type`].
+    #[serde(default)]
+    pub test_types: Vec<TestTypeSpec>,
+    /// Free-form remark for suite authors; the runner ignores it.
+    #[serde(default)]
+    pub note: Option<String>,
 }
 
 fn default_factor() -> f64 {
@@ -108,9 +137,69 @@ fn default_min_seconds() -> f64 {
 }
 
 impl Manifest {
+    /// The declared program, or the library-only one.
+    pub fn program(&self) -> ProgramSpec {
+        self.program.clone().unwrap_or_else(ProgramSpec::library_only)
+    }
+
+    /// The type of one test.
+    pub fn test_type_of(&self, name: &str) -> Dimension {
+        self.type_rules().type_of(name)
+    }
+
+    fn type_rules(&self) -> TypeRules {
+        TypeRules {
+            rules: self.test_types.clone(),
+            default: self.program().default_test_type(),
+            missing: Vec::new(),
+        }
+    }
+
+    fn validate(&self) -> Result<()> {
+        let program = self.program();
+        program.validate()?;
+        for t in &self.test_types {
+            t.validate()?;
+            if !program.has(t.test_type) {
+                return Err(format!(
+                    "test_types gives '{}' the type {}, which the program does not declare",
+                    t.filter, t.test_type
+                )
+                .into());
+            }
+        }
+        Ok(())
+    }
+
     /// Timeout in seconds granted to an invocation with the given C baseline.
     pub fn timeout_secs(&self, budget: f64) -> u64 {
         (budget * self.default_factor).max(self.min_seconds).ceil() as u64
+    }
+}
+
+/// What a run knows about test types: the manifest's `test_types` rules
+/// (first match wins, else the program's default type) and the dimensions
+/// whose artifact the run was not given.
+#[derive(Debug, Clone, Default)]
+struct TypeRules {
+    rules: Vec<TestTypeSpec>,
+    default: Dimension,
+    missing: Vec<Dimension>,
+}
+
+impl TypeRules {
+    fn type_of(&self, name: &str) -> Dimension {
+        self.rules
+            .iter()
+            .find(|t| filter_matches(&t.filter, name))
+            .map(|t| t.test_type)
+            .unwrap_or(self.default)
+    }
+
+    /// The type all tests of an invocation share; None for a mixed batch.
+    fn uniform_type(&self, inv: &PlannedInvocation) -> Option<Dimension> {
+        let first = self.type_of(inv.tests.first()?);
+        inv.tests.iter().all(|t| self.type_of(t) == first).then_some(first)
     }
 }
 
@@ -124,7 +213,21 @@ pub fn load_manifest(suite_dir: &Path) -> Result<Option<Manifest>> {
     };
     let manifest: Manifest = serde_json::from_str(&raw)
         .map_err(|e| format!("malformed {}: {}", path.display(), e))?;
+    manifest
+        .validate()
+        .map_err(|e| format!("invalid {}: {}", path.display(), e))?;
     Ok(Some(manifest))
+}
+
+/// Loads a suite's manifest and the program it declares (library only when
+/// there is no manifest or no `program` block).
+pub fn load_program(suite_dir: &Path) -> Result<(Option<Manifest>, ProgramSpec)> {
+    let manifest = load_manifest(suite_dir)?;
+    let program = manifest
+        .as_ref()
+        .map(|m| m.program())
+        .unwrap_or_else(ProgramSpec::library_only);
+    Ok((manifest, program))
 }
 
 // ---------------------------------------------------------------------------
@@ -276,6 +379,10 @@ pub enum FailureCause {
     MissingVerdict,
     /// The test binary could not be spawned at all.
     SpawnFailed,
+    /// The run was not given the artifact this test exercises (its
+    /// `test_type`): a program with both a library and an executable, run
+    /// with only one of them.
+    MissingArtifact,
 }
 
 impl FailureCause {
@@ -289,6 +396,7 @@ impl FailureCause {
             FailureCause::NoReport => "no-report",
             FailureCause::MissingVerdict => "missing",
             FailureCause::SpawnFailed => "spawn",
+            FailureCause::MissingArtifact => "missing-artifact",
         }
     }
 }
@@ -317,6 +425,8 @@ pub enum ExitKind {
 #[derive(Debug, Clone, serde::Serialize)]
 pub struct TestVerdict {
     pub name: String,
+    /// What the test exercises.
+    pub test_type: Dimension,
     pub status: TestStatus,
     /// Failure detail (assertion text, crash/timeout reason). Empty on pass.
     #[serde(skip_serializing_if = "String::is_empty")]
@@ -374,12 +484,56 @@ pub struct InvocationOutcome {
 /// list); `outcomes[i]` records what running `plan.invocations[i]` did.
 #[derive(Debug, Default, serde::Serialize)]
 pub struct RunReport {
+    /// The artifacts the run was given. Absent only in reports folded by
+    /// [`execute_plan`] alone.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub program: Option<Artifacts>,
+    /// Declared artifacts the run was not given: the tests of these types
+    /// are recorded as failed with [`FailureCause::MissingArtifact`].
+    #[serde(skip_serializing_if = "Vec::is_empty")]
+    pub missing_artifacts: Vec<Dimension>,
     pub plan: ExecutionPlan,
     pub outcomes: Vec<InvocationOutcome>,
     pub verdicts: Vec<TestVerdict>,
 }
 
+/// Verdict counts of one test type.
+#[derive(Debug, Clone, Copy, Default, PartialEq, Eq, serde::Serialize)]
+pub struct TypeCounts {
+    pub total: usize,
+    pub passed: usize,
+    pub failed: usize,
+    pub skipped: usize,
+}
+
 impl RunReport {
+    /// Verdict counts per test type, `lib` first; types without tests are
+    /// left out.
+    pub fn by_type(&self) -> Vec<(Dimension, TypeCounts)> {
+        [Dimension::Lib, Dimension::Bin]
+            .into_iter()
+            .filter_map(|t| {
+                let mut c = TypeCounts::default();
+                for v in self.verdicts.iter().filter(|v| v.test_type == t) {
+                    c.total += 1;
+                    match v.status {
+                        TestStatus::Passed => c.passed += 1,
+                        TestStatus::Skipped => c.skipped += 1,
+                        TestStatus::Failed(_) => c.failed += 1,
+                    }
+                }
+                (c.total > 0).then_some((t, c))
+            })
+            .collect()
+    }
+
+    /// Whether the summary splits counts and failures by test type: only
+    /// when a test is not a library test, so library-only reports render as
+    /// they always have.
+    fn shows_types(&self) -> bool {
+        self.verdicts.iter().any(|v| v.test_type != Dimension::Lib)
+    }
+
     pub fn passed(&self) -> usize {
         self.verdicts
             .iter()
@@ -398,7 +552,8 @@ impl RunReport {
 }
 
 impl std::fmt::Display for RunReport {
-    /// The default static rendering: one summary line, then one line per
+    /// The default static rendering: one summary line, per-type lines when
+    /// the run has executable tests, missing artifacts, then one line per
     /// failure with its structured cause and the first line of detail.
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         writeln!(
@@ -409,10 +564,31 @@ impl std::fmt::Display for RunReport {
             self.failed(),
             self.skipped()
         )?;
+        let shows_types = self.shows_types();
+        if shows_types {
+            for (t, c) in self.by_type() {
+                writeln!(
+                    f,
+                    "  {}: {} tests, {} passed, {} failed, {} skipped",
+                    t, c.total, c.passed, c.failed, c.skipped
+                )?;
+            }
+        }
+        for dim in &self.missing_artifacts {
+            writeln!(
+                f,
+                "  MISSING {} artifact: its tests are recorded as failed",
+                dim
+            )?;
+        }
         for v in self.verdicts.iter().filter(|v| v.failed()) {
             let cause = v.cause().map(|c| c.label()).unwrap_or("failed");
             let first = v.failure.lines().next().unwrap_or("");
-            writeln!(f, "  FAIL [{}] {} - {}", cause, v.name, first)?;
+            if shows_types {
+                writeln!(f, "  FAIL [{}] [{}] {} - {}", cause, v.test_type, v.name, first)?;
+            } else {
+                writeln!(f, "  FAIL [{}] {} - {}", cause, v.name, first)?;
+            }
         }
         Ok(())
     }
@@ -439,13 +615,18 @@ fn run_command(mut cmd: Command, what: &str) -> Result<Output> {
     Ok(output)
 }
 
-/// Configures and builds a suite against `lib_path`, returning the test
-/// binary path.
-pub fn build_suite(suite_dir: &Path, lib_path: &Path, build_dir: &Path) -> Result<PathBuf> {
+/// Configures and builds a suite, returning the test binary path. Each path
+/// in `suite_paths` goes to its CMake variable (`TEST_LIB_PATH`,
+/// `TEST_BIN_PATH`) as an absolute path (canonical when it exists); use
+/// [`resolve_artifacts`] to check them against the program first. `program`
+/// supplies `TEST_BIN_NAME`, the executable's program name.
+pub fn build_suite(
+    suite_dir: &Path,
+    suite_paths: &Artifacts,
+    program: &ProgramSpec,
+    build_dir: &Path,
+) -> Result<PathBuf> {
     fs::create_dir_all(build_dir)?;
-    let lib_path = lib_path
-        .canonicalize()
-        .map_err(|e| format!("library not found at {}: {}", lib_path.display(), e))?;
 
     let mut configure = Command::new("cmake");
     configure
@@ -453,8 +634,26 @@ pub fn build_suite(suite_dir: &Path, lib_path: &Path, build_dir: &Path) -> Resul
         .arg(suite_dir)
         .arg("-B")
         .arg(build_dir)
-        .arg("-DCMAKE_BUILD_TYPE=Release")
-        .arg(format!("-DTEST_LIB_PATH={}", lib_path.display()));
+        .arg("-DCMAKE_BUILD_TYPE=Release");
+    for dim in [Dimension::Lib, Dimension::Bin] {
+        match suite_paths.get(dim) {
+            Some(path) => {
+                let path = match path.canonicalize() {
+                    Ok(p) => p,
+                    Err(_) => std::path::absolute(path)?,
+                };
+                configure.arg(format!("-D{}={}", dim.cmake_var(), path.display()))
+            }
+            // Clear a value cached by an earlier configure of this build
+            // directory: an undeclared artifact must stay unset.
+            None => configure.arg(format!("-U{}", dim.cmake_var())),
+        };
+    }
+    // The manifest is the only source of the program name (argv[0]).
+    match &program.bin {
+        Some(bin) => configure.arg(format!("-DTEST_BIN_NAME={}", bin.name)),
+        None => configure.arg("-UTEST_BIN_NAME"),
+    };
     run_command(configure, "cmake configure (suite)")?;
 
     let mut build = Command::new("cmake");
@@ -473,10 +672,18 @@ pub fn build_suite(suite_dir: &Path, lib_path: &Path, build_dir: &Path) -> Resul
     Ok(bin.canonicalize().unwrap_or(bin))
 }
 
-/// Builds a test's reference C library (`test_case/CMakeLists.txt`) and
-/// returns the path of the produced shared library.
-pub fn build_c_reference(test_case_dir: &Path, build_dir: &Path) -> Result<PathBuf> {
+/// Builds a test's reference C program (`test_case/CMakeLists.txt`) with its
+/// default configuration and returns every artifact the program declares
+/// (located through the CMake file API: the declared `c_target`, or else the
+/// build's only target of the needed type). A declared artifact that the
+/// build does not produce is an error.
+pub fn build_c_reference(
+    test_case_dir: &Path,
+    build_dir: &Path,
+    program: &ProgramSpec,
+) -> Result<Artifacts> {
     fs::create_dir_all(build_dir)?;
+    cmake_api::write_query(build_dir)?;
 
     let mut configure = Command::new("cmake");
     configure
@@ -492,28 +699,74 @@ pub fn build_c_reference(test_case_dir: &Path, build_dir: &Path) -> Result<PathB
     build.arg("--build").arg(build_dir).arg("--parallel");
     run_command(build, "cmake build (test_case)")?;
 
-    // The test_case build convention places the shared library in the build
-    // directory root.
-    let mut candidates: Vec<PathBuf> = fs::read_dir(build_dir)?
-        .filter_map(|e| e.ok())
-        .map(|e| e.path())
-        .filter(|p| {
-            p.extension()
-                .map(|ext| ext == "so" || ext == "dylib")
-                .unwrap_or(false)
-        })
-        .collect();
-    candidates.sort();
-    candidates
-        .into_iter()
-        .next()
-        .ok_or_else(|| {
-            format!(
-                "no shared library produced in {} by the test_case build",
-                build_dir.display()
+    cmake_api::locate_artifacts(build_dir, program)
+}
+
+// ---------------------------------------------------------------------------
+// Scratch directories
+
+/// The scratch directory of one invocation, exported to the suite as
+/// `HARVEST_TEST_TMPDIR`. Each invocation gets a new one, so a directory that
+/// could not be removed never reaches a later invocation.
+pub struct Scratch {
+    path: PathBuf,
+}
+
+impl Scratch {
+    /// Creates a new scratch directory under `<build_dir>/harvest_tmp/`.
+    pub fn create(build_dir: &Path) -> Result<Scratch> {
+        static NEXT: std::sync::atomic::AtomicU64 = std::sync::atomic::AtomicU64::new(0);
+        let n = NEXT.fetch_add(1, std::sync::atomic::Ordering::Relaxed);
+        let path = std::path::absolute(build_dir)?
+            .join(SCRATCH_PARENT_DIR)
+            .join(format!("{}-{}", std::process::id(), n));
+        fs::create_dir_all(&path)
+            .map_err(|e| format!("cannot create scratch directory {}: {}", path.display(), e))?;
+        Ok(Scratch { path })
+    }
+
+    pub fn path(&self) -> &Path {
+        &self.path
+    }
+
+    /// Removes the directory, after giving back write permission to every
+    /// directory in it (a tested program may have taken it away).
+    pub fn remove(self) -> Result<()> {
+        make_dirs_writable(&self.path);
+        match fs::remove_dir_all(&self.path) {
+            Err(e) if e.kind() != std::io::ErrorKind::NotFound => Err(format!(
+                "cannot remove scratch directory {}: {}",
+                self.path.display(),
+                e
             )
-            .into()
-        })
+            .into()),
+            _ => Ok(()),
+        }
+    }
+}
+
+/// Adds owner rwx to `path` and every directory below it (not following
+/// symlinks), so that their entries can be deleted.
+fn make_dirs_writable(path: &Path) {
+    let Ok(meta) = fs::symlink_metadata(path) else {
+        return;
+    };
+    if !meta.is_dir() {
+        return;
+    }
+    #[cfg(unix)]
+    {
+        use std::os::unix::fs::PermissionsExt;
+        let mode = meta.permissions().mode();
+        if mode & 0o700 != 0o700 {
+            let _ = fs::set_permissions(path, fs::Permissions::from_mode(mode | 0o700));
+        }
+    }
+    if let Ok(entries) = fs::read_dir(path) {
+        for entry in entries.filter_map(|e| e.ok()) {
+            make_dirs_writable(&entry.path());
+        }
+    }
 }
 
 // ---------------------------------------------------------------------------
@@ -575,9 +828,11 @@ struct ProcessRun {
 /// Spawns the gtest binary with the given extra args and a hard deadline.
 ///
 /// The child gets its own process group so the timeout kill reaps its ENTIRE
-/// tree: suites fork() helper children (pcre2test runs, scenario recorders),
-/// and killing only the direct child leaves a looping grandchild alive —
-/// spinning at 100% CPU and holding the inherited output pipes open forever.
+/// tree: suites fork() helper children (pcre2test runs, scenario recorders,
+/// the executable under test and its children), and killing only the direct
+/// child leaves a looping grandchild alive — spinning at 100% CPU and
+/// holding the inherited output pipes open forever. (A descendant that calls
+/// setsid escapes; see doc/executable-tests.md.)
 ///
 /// Both output streams are drained on reader threads WHILE the child runs: a
 /// large suite prints more than a pipe buffer holds, and a child blocked on a
@@ -591,14 +846,20 @@ fn run_gtest_process(
     timeout: Duration,
 ) -> ProcessRun {
     let started = Instant::now();
+    let scratch = Scratch::create(gtest_bin.parent().unwrap_or_else(|| Path::new(".")))
+        .inspect_err(|e| eprintln!("warning: {}", e))
+        .ok();
     let mut cmd = Command::new(gtest_bin);
     cmd.args(args)
         .env(LD_LIBRARY_PATH_ENV, ld_library_path)
         .env(
             "HARVEST_TEST_SOFT_TIMEOUT_SECS",
             timeout.as_secs().to_string(),
-        )
-        .stdin(Stdio::null())
+        );
+    if let Some(scratch) = &scratch {
+        cmd.env("HARVEST_TEST_TMPDIR", scratch.path());
+    }
+    cmd.stdin(Stdio::null())
         .stdout(Stdio::piped())
         .stderr(Stdio::piped());
     #[cfg(unix)]
@@ -638,6 +899,11 @@ fn run_gtest_process(
     let stdout = collect_drained(stdout_rx, deadline);
     let stderr = collect_drained(stderr_rx, deadline);
     let duration_secs = started.elapsed().as_secs_f64();
+    if let Some(scratch) = scratch {
+        if let Err(e) = scratch.remove() {
+            eprintln!("warning: {}", e);
+        }
+    }
 
     let exit = if timed_out {
         ExitKind::TimedOut {
@@ -828,6 +1094,9 @@ fn parse_gtest_json_report(raw: &str) -> Result<Vec<(String, JsonVerdict)>> {
 /// are not breaking changes.
 #[non_exhaustive]
 pub enum Event<'a> {
+    /// The run was not given a declared artifact; the suite gets a
+    /// placeholder path instead and the artifact's tests count as failed.
+    ArtifactMissing { artifact: Dimension },
     /// CMake configure+build of the suite is starting.
     SuiteBuildStarted { suite_dir: &'a Path },
     /// The suite binary is built.
@@ -839,11 +1108,13 @@ pub enum Event<'a> {
         plan: &'a ExecutionPlan,
         from_manifest: bool,
     },
-    /// A process-level invocation is about to run.
+    /// A process-level invocation is about to run. `test_type` is the type
+    /// all its tests share (None for a mixed batch).
     InvocationStarted {
         index: usize,
         total: usize,
         invocation: &'a PlannedInvocation,
+        test_type: Option<Dimension>,
     },
     /// One test's verdict is known. Fires for batched and per-case tests
     /// alike, once their invocation finishes.
@@ -856,7 +1127,17 @@ pub enum Event<'a> {
         total: usize,
         invocation: &'a PlannedInvocation,
         outcome: &'a InvocationOutcome,
+        test_type: Option<Dimension>,
     },
+}
+
+/// The `[bin] ` tag of live display lines; empty for library tests and mixed
+/// batches.
+fn type_tag(test_type: &Option<Dimension>) -> &'static str {
+    match test_type {
+        Some(Dimension::Bin) => "[bin] ",
+        _ => "",
+    }
 }
 
 /// The default line-oriented rendering of an event — what the CLI prints:
@@ -865,6 +1146,10 @@ pub enum Event<'a> {
 /// None for events the default display keeps silent.
 pub fn default_event_line(event: &Event) -> Option<String> {
     match event {
+        Event::ArtifactMissing { artifact } => Some(format!(
+            "[warn ] no {0} artifact given: the {0} tests run against a placeholder and count as failed",
+            artifact
+        )),
         Event::SuiteBuildStarted { suite_dir } => {
             Some(format!("[build] {}", suite_dir.display()))
         }
@@ -881,9 +1166,14 @@ pub fn default_event_line(event: &Event) -> Option<String> {
                 " (no manifest; global timeout)"
             }
         )),
-        Event::InvocationStarted { invocation, .. } => match invocation.mode {
+        Event::InvocationStarted {
+            invocation,
+            test_type,
+            ..
+        } => match invocation.mode {
             InvocationMode::Suite => Some(format!(
-                "[batch] {} ({} tests, timeout {}s)",
+                "[batch] {}{} ({} tests, timeout {}s)",
+                type_tag(test_type),
                 invocation.filter,
                 invocation.tests.len(),
                 invocation.timeout_secs
@@ -893,11 +1183,15 @@ pub fn default_event_line(event: &Event) -> Option<String> {
         Event::InvocationFinished {
             invocation,
             outcome,
+            test_type,
             ..
         } => match invocation.mode {
             InvocationMode::Suite => Some(format!(
-                "[batch] {} -> {}/{} passed",
-                invocation.filter, outcome.passed, outcome.total
+                "[batch] {}{} -> {}/{} passed",
+                type_tag(test_type),
+                invocation.filter,
+                outcome.passed,
+                outcome.total
             )),
             InvocationMode::Case => {
                 let mark = if outcome.skipped > 0 {
@@ -907,7 +1201,7 @@ pub fn default_event_line(event: &Event) -> Option<String> {
                 } else {
                     "FAIL"
                 };
-                Some(format!("[case ] {} {}", mark, invocation.filter))
+                Some(format!("[case ] {} {}{}", mark, type_tag(test_type), invocation.filter))
             }
         },
         _ => None,
@@ -927,7 +1221,7 @@ fn tail_of(bytes: &[u8], max: usize) -> String {
     format!("...{}", &s[cut..])
 }
 
-fn json_to_verdict(name: &str, v: &JsonVerdict, invocation: usize) -> TestVerdict {
+fn json_to_verdict(name: &str, test_type: Dimension, v: &JsonVerdict, invocation: usize) -> TestVerdict {
     let status = if v.skipped {
         TestStatus::Skipped
     } else if v.passed {
@@ -937,6 +1231,7 @@ fn json_to_verdict(name: &str, v: &JsonVerdict, invocation: usize) -> TestVerdic
     };
     TestVerdict {
         name: name.to_string(),
+        test_type,
         status,
         failure: v.failure_text.clone(),
         time_secs: v.time_secs,
@@ -949,7 +1244,7 @@ fn json_to_verdict(name: &str, v: &JsonVerdict, invocation: usize) -> TestVerdic
 /// kept only when the process ended abnormally.
 fn outcome_of(run: &ProcessRun, verdicts: &[TestVerdict]) -> InvocationOutcome {
     let abnormal = !matches!(run.exit, ExitKind::Clean { .. });
-    InvocationOutcome {
+    let mut outcome = InvocationOutcome {
         exit: run.exit,
         duration_secs: run.duration_secs,
         stderr_tail: if abnormal {
@@ -957,13 +1252,36 @@ fn outcome_of(run: &ProcessRun, verdicts: &[TestVerdict]) -> InvocationOutcome {
         } else {
             String::new()
         },
-        passed: verdicts
+        passed: 0,
+        skipped: 0,
+        total: 0,
+    };
+    outcome.count(verdicts);
+    outcome
+}
+
+impl InvocationOutcome {
+    fn count(&mut self, verdicts: &[TestVerdict]) {
+        self.passed = verdicts
             .iter()
             .filter(|v| matches!(v.status, TestStatus::Passed))
-            .count(),
-        skipped: verdicts.iter().filter(|v| v.skipped()).count(),
-        total: verdicts.len(),
+            .count();
+        self.skipped = verdicts.iter().filter(|v| v.skipped()).count();
+        self.total = verdicts.len();
     }
+}
+
+/// Records the verdict of a test whose artifact the run was not given as
+/// failed, whatever the test did against the placeholder: a missing
+/// artifact never scores. The test's own failure text is kept.
+fn fail_missing_artifact(v: &mut TestVerdict) {
+    let note = format!("no {} artifact was given to this run", v.test_type);
+    v.failure = if v.failure.is_empty() {
+        note
+    } else {
+        format!("{}\n{}", note, v.failure)
+    };
+    v.status = TestStatus::Failed(FailureCause::MissingArtifact);
 }
 
 /// Runs one `suite`-mode invocation and ingests per-case verdicts from its
@@ -973,6 +1291,7 @@ fn outcome_of(run: &ProcessRun, verdicts: &[TestVerdict]) -> InvocationOutcome {
 fn run_batch(
     gtest_bin: &Path,
     ld_library_path: &str,
+    types: &TypeRules,
     inv: &PlannedInvocation,
     inv_index: usize,
 ) -> (InvocationOutcome, Vec<TestVerdict>) {
@@ -1007,9 +1326,10 @@ fn run_batch(
         Some(parsed) => {
             for name in &inv.tests {
                 match parsed.iter().find(|(n, _)| n == name) {
-                    Some((_, v)) => verdicts.push(json_to_verdict(name, v, inv_index)),
+                    Some((_, v)) => verdicts.push(json_to_verdict(name, types.type_of(name), v, inv_index)),
                     None => verdicts.push(TestVerdict {
                         name: name.clone(),
+                        test_type: types.type_of(name),
                         status: TestStatus::Failed(FailureCause::MissingVerdict),
                         failure: format!(
                             "no verdict in the batch report ({})",
@@ -1025,7 +1345,7 @@ fn run_batch(
             // authoritative).
             for (name, v) in &parsed {
                 if !inv.tests.contains(name) {
-                    verdicts.push(json_to_verdict(name, v, inv_index));
+                    verdicts.push(json_to_verdict(name, types.type_of(name), v, inv_index));
                 }
             }
         }
@@ -1042,6 +1362,7 @@ fn run_batch(
             for name in &inv.tests {
                 verdicts.push(TestVerdict {
                     name: name.clone(),
+                    test_type: types.type_of(name),
                     status: TestStatus::Failed(cause),
                     failure: failure.clone(),
                     time_secs: None,
@@ -1059,6 +1380,7 @@ fn run_batch(
 fn run_case(
     gtest_bin: &Path,
     ld_library_path: &str,
+    types: &TypeRules,
     inv: &PlannedInvocation,
     inv_index: usize,
 ) -> (InvocationOutcome, Vec<TestVerdict>) {
@@ -1074,6 +1396,7 @@ fn run_case(
     let verdict = match run.exit {
         ExitKind::Clean { code: Some(0) } => TestVerdict {
             name: name.clone(),
+            test_type: types.type_of(name),
             status: if stdout.contains("[  SKIPPED ]") {
                 TestStatus::Skipped
             } else {
@@ -1092,6 +1415,7 @@ fn run_case(
             };
             TestVerdict {
                 name: name.clone(),
+                test_type: types.type_of(name),
                 status: TestStatus::Failed(cause),
                 failure: format!(
                     "{}\nstdout:\n{}\nstderr:\n{}",
@@ -1117,6 +1441,18 @@ pub fn execute_plan(
     gtest_bin: &Path,
     ld_library_path: &str,
     plan: ExecutionPlan,
+    on_event: impl FnMut(&Event),
+) -> RunReport {
+    execute(gtest_bin, ld_library_path, plan, &TypeRules::default(), on_event)
+}
+
+/// [`execute_plan`] with the run's test types: verdicts and events carry
+/// each test's type, and verdicts of a missing artifact's type fail.
+fn execute(
+    gtest_bin: &Path,
+    ld_library_path: &str,
+    plan: ExecutionPlan,
+    types: &TypeRules,
     mut on_event: impl FnMut(&Event),
 ) -> RunReport {
     let mut outcomes = Vec::new();
@@ -1124,15 +1460,23 @@ pub fn execute_plan(
     let total = plan.invocations.len();
 
     for (index, inv) in plan.invocations.iter().enumerate() {
+        let test_type = types.uniform_type(inv);
         on_event(&Event::InvocationStarted {
             index,
             total,
             invocation: inv,
+            test_type,
         });
-        let (outcome, verdicts) = match inv.mode {
-            InvocationMode::Suite => run_batch(gtest_bin, ld_library_path, inv, index),
-            InvocationMode::Case => run_case(gtest_bin, ld_library_path, inv, index),
+        let (mut outcome, mut verdicts) = match inv.mode {
+            InvocationMode::Suite => run_batch(gtest_bin, ld_library_path, types, inv, index),
+            InvocationMode::Case => run_case(gtest_bin, ld_library_path, types, inv, index),
         };
+        if !types.missing.is_empty() {
+            for v in verdicts.iter_mut().filter(|v| types.missing.contains(&v.test_type)) {
+                fail_missing_artifact(v);
+            }
+            outcome.count(&verdicts);
+        }
         for v in &verdicts {
             on_event(&Event::TestFinished { verdict: v });
         }
@@ -1141,12 +1485,15 @@ pub fn execute_plan(
             total,
             invocation: inv,
             outcome: &outcome,
+            test_type,
         });
         outcomes.push(outcome);
         all_verdicts.extend(verdicts);
     }
 
     RunReport {
+        program: None,
+        missing_artifacts: types.missing.clone(),
         plan,
         outcomes,
         verdicts: all_verdicts,
@@ -1160,8 +1507,10 @@ pub fn execute_plan(
 pub struct RunConfig {
     /// Directory containing the suite (CMakeLists.txt, manifest.json, ...).
     pub suite_dir: PathBuf,
-    /// The shared library under test.
-    pub lib_path: PathBuf,
+    /// The artifacts under test, checked against the suite's program with
+    /// [`resolve_artifacts`]: a program with both a library and an executable
+    /// may be run with only one of them (the other's tests then fail).
+    pub artifacts: Artifacts,
     /// Where to build the suite. A subdirectory of the caller's choosing;
     /// reused across runs for incremental builds.
     pub build_dir: PathBuf,
@@ -1183,21 +1532,41 @@ pub fn run_suite(config: &RunConfig) -> Result<RunReport> {
 /// report is the fold of exactly the events delivered.
 pub fn run_suite_streaming(
     config: &RunConfig,
+    on_event: impl FnMut(&Event),
+) -> Result<RunReport> {
+    let (manifest, program) = load_program(&config.suite_dir)?;
+    run_loaded(config, manifest, &program, on_event)
+}
+
+/// [`run_suite_streaming`] with the suite's manifest already loaded.
+fn run_loaded(
+    config: &RunConfig,
+    manifest: Option<Manifest>,
+    program: &ProgramSpec,
     mut on_event: impl FnMut(&Event),
 ) -> Result<RunReport> {
-    let manifest = load_manifest(&config.suite_dir)?;
+    let artifacts = resolve_artifacts(&config.artifacts, program, true)?;
+    for &artifact in &artifacts.missing {
+        on_event(&Event::ArtifactMissing { artifact });
+    }
     on_event(&Event::SuiteBuildStarted {
         suite_dir: &config.suite_dir,
     });
-    let bin = build_suite(&config.suite_dir, &config.lib_path, &config.build_dir)?;
+    let suite_paths = artifacts.suite_paths(program, &config.build_dir)?;
+    let bin = build_suite(&config.suite_dir, &suite_paths, program, &config.build_dir).map_err(|e| {
+        if artifacts.missing.contains(&Dimension::Lib) {
+            format!(
+                "{}\n(no lib artifact was given: a suite that links the library at build time \
+                 cannot build without one)",
+                e
+            )
+            .into()
+        } else {
+            e
+        }
+    })?;
     on_event(&Event::SuiteBuilt { gtest_bin: &bin });
-    let ld_library_path = config
-        .lib_path
-        .canonicalize()
-        .unwrap_or_else(|_| config.lib_path.clone())
-        .parent()
-        .map(|p| p.to_string_lossy().into_owned())
-        .unwrap_or_default();
+    let ld_library_path = artifacts.ld_library_path();
 
     let tests = list_gtest_tests(&bin, &ld_library_path)?;
     on_event(&Event::TestsDiscovered { count: tests.len() });
@@ -1206,7 +1575,11 @@ pub fn run_suite_streaming(
         plan: &plan,
         from_manifest: manifest.is_some(),
     });
-    Ok(execute_plan(&bin, &ld_library_path, plan, on_event))
+    let mut types = manifest.map(|m| m.type_rules()).unwrap_or_default();
+    types.missing = artifacts.missing;
+    let mut report = execute(&bin, &ld_library_path, plan, &types, on_event);
+    report.program = Some(artifacts.given);
+    Ok(report)
 }
 
 /// Detects whether a directory is a test directory (a `test_case/` C source
@@ -1215,8 +1588,9 @@ pub fn is_test_dir(path: &Path) -> bool {
     path.join("test_case").is_dir() && path.join("gtest_suite").is_dir()
 }
 
-/// Builds the reference C library of a test directory and runs its suite
-/// against it. Build trees go under `<test_dir>/build/`.
+/// Builds the reference C program of a test directory and runs its suite
+/// against it. Build trees go under `<test_dir>/build/`. The reference must
+/// provide every artifact the program declares.
 pub fn verify_test_dir(
     test_dir: &Path,
     fallback_timeout: u64,
@@ -1229,15 +1603,16 @@ pub fn verify_test_dir(
         )
         .into());
     }
-    let c_build = test_dir.join("build").join("c");
-    let lib = build_c_reference(&test_dir.join("test_case"), &c_build)?;
+    let suite_dir = test_dir.join("gtest_suite");
+    let (manifest, program) = load_program(&suite_dir)?;
+    let artifacts = build_c_reference(&test_dir.join("test_case"), &test_dir.join("build").join("c"), &program)?;
     let config = RunConfig {
-        suite_dir: test_dir.join("gtest_suite"),
-        lib_path: lib,
+        suite_dir,
+        artifacts,
         build_dir: test_dir.join("build").join("gtest"),
         fallback_timeout,
     };
-    run_suite_streaming(&config, on_event)
+    run_loaded(&config, manifest, &program, on_event)
 }
 
 // ---------------------------------------------------------------------------
@@ -1268,7 +1643,9 @@ mod tests {
     #[test]
     fn plan_assignment_first_match_wins() {
         let manifest = Manifest {
-            version: 1,
+            program: None,
+            test_types: Vec::new(),
+            note: None,
             default_factor: 3.0,
             min_seconds: 10.0,
             invocations: vec![
@@ -1307,6 +1684,163 @@ mod tests {
         assert_eq!(plain.mode, InvocationMode::Case);
         assert_eq!(plain.filter, "Plain.Simple");
         assert_eq!(plain.timeout_secs, 42); // fallback
+    }
+
+    fn manifest(raw: &str) -> Result<Manifest> {
+        let m: Manifest = serde_json::from_str(raw)?;
+        m.validate()?;
+        Ok(m)
+    }
+
+    #[test]
+    fn manifest_without_program_is_library_only() {
+        let m = manifest(r#"{"invocations":[]}"#).unwrap();
+        assert_eq!(m.program(), ProgramSpec::library_only());
+        assert_eq!(m.test_type_of("Any.Test"), Dimension::Lib);
+    }
+
+    #[test]
+    fn manifest_test_types() {
+        let m = manifest(
+            r#"{
+                "program":{"lib":{"c_target":"toy"},"bin":{"c_target":"toyexe","name":"toy"}},
+                "test_types":[{"type":"bin","filter":"Shell*:Exe.*"}]}"#,
+        )
+        .unwrap();
+        assert_eq!(m.test_type_of("ShellEcho.Basic"), Dimension::Bin);
+        assert_eq!(m.test_type_of("Exe.Usage"), Dimension::Bin);
+        assert_eq!(m.test_type_of("Api.Open"), Dimension::Lib);
+        let bin_only = manifest(r#"{"program":{"bin":{"name":"x"}}}"#).unwrap();
+        assert_eq!(bin_only.test_type_of("Anything"), Dimension::Bin);
+
+        // The live [bin] tag needs one type per invocation.
+        let plan = build_execution_plan(
+            &["Exe.Usage".to_string(), "Api.Open".to_string()],
+            Some(&m),
+            30,
+        );
+        let types = m.type_rules();
+        assert_eq!(types.uniform_type(&plan.invocations[0]), Some(Dimension::Bin));
+        assert_eq!(types.uniform_type(&plan.invocations[1]), Some(Dimension::Lib));
+    }
+
+    #[test]
+    fn manifest_rejects() {
+        assert!(manifest(r#"{"program":{"bin":{"name":"x"}}}"#).is_ok());
+        // A program block must declare something; bin needs a name.
+        assert!(manifest(r#"{"program":{}}"#).is_err());
+        assert!(manifest(r#"{"program":{"bin":{}}}"#).is_err());
+        // Old and unknown spellings are errors, not silently ignored.
+        assert!(manifest(r#"{"program":{"kind":"lib"}}"#).is_err());
+        assert!(manifest(r#"{"program":{"cli":{"name":"x"}}}"#).is_err());
+        // A test type must be a declared dimension.
+        assert!(manifest(r#"{"test_types":[{"type":"bin","filter":"*"}]}"#).is_err());
+        assert!(manifest(
+            r#"{"program":{"bin":{"name":"x"}},"test_types":[{"type":"lib","filter":"*"}]}"#
+        )
+        .is_err());
+        assert!(manifest(r#"{"test_types":[{"type":"cli","filter":"*"}]}"#).is_err());
+    }
+
+    #[test]
+    fn manifest_unknown_fields_are_errors() {
+        assert!(manifest(r#"{"note":"kept for authors"}"#).is_ok());
+        assert!(manifest(r#"{"programs":{"bin":{"name":"x"}}}"#).is_err());
+        assert!(manifest(r#"{"test_type":[{"type":"lib","filter":"*"}]}"#).is_err());
+        assert!(manifest(r#"{"invocations":[{"mode":"case","filter":"A.*","bugdet":1.0}]}"#).is_err());
+        assert!(manifest(r#"{"invocations":[{"mode":"case","filter":"A.*","budget":1.0,"note":"x"}]}"#).is_ok());
+        assert!(manifest(r#"{"test_types":[{"type":"lib","filter":""}]}"#).is_err());
+    }
+
+    #[test]
+    fn unlisted_and_unmatched_tests_get_rule_or_default_types() {
+        let m = manifest(
+            r#"{"program":{"lib":{},"bin":{"name":"x"}},
+                "test_types":[{"type":"bin","filter":"Shell.*"}]}"#,
+        )
+        .unwrap();
+        let types = m.type_rules();
+        assert_eq!(types.type_of("Shell.Late"), Dimension::Bin);
+        assert_eq!(types.type_of("Other.X"), Dimension::Lib, "no rule: the default");
+        let mixed = PlannedInvocation {
+            mode: InvocationMode::Suite,
+            filter: "*".to_string(),
+            tests: vec!["Shell.A".to_string(), "Api.B".to_string()],
+            timeout_secs: 10,
+            note: None,
+        };
+        assert_eq!(types.uniform_type(&mixed), None, "a mixed batch has no tag");
+        // Library-only plans serialize as before.
+        let json = serde_json::to_value(build_execution_plan(&["Api.Open".to_string()], None, 30)).unwrap();
+        assert_eq!(
+            json["invocations"][0].as_object().unwrap().keys().collect::<Vec<_>>(),
+            vec!["filter", "mode", "note", "tests", "timeout_secs"]
+        );
+    }
+
+    #[cfg(unix)]
+    #[test]
+    fn scratch_removal_survives_read_only_directories() {
+        use std::os::unix::fs::PermissionsExt;
+        let build = std::env::current_exe()
+            .unwrap()
+            .parent()
+            .unwrap()
+            .join(format!("scratch-test-{}", std::process::id()));
+        let a = Scratch::create(&build).unwrap();
+        let b = Scratch::create(&build).unwrap();
+        assert_ne!(a.path(), b.path(), "one directory per invocation");
+        let locked = a.path().join("locked");
+        fs::create_dir(&locked).unwrap();
+        fs::write(locked.join("file"), "x").unwrap();
+        fs::set_permissions(&locked, fs::Permissions::from_mode(0o500)).unwrap();
+        let a_path = a.path().to_path_buf();
+        a.remove().unwrap();
+        b.remove().unwrap();
+        assert!(!a_path.exists());
+        fs::remove_dir_all(&build).unwrap();
+    }
+
+    #[test]
+    fn missing_artifact_fails_the_test_and_shows_in_the_summary() {
+        let mut passed = TestVerdict {
+            name: "Exe.Usage".to_string(),
+            test_type: Dimension::Bin,
+            status: TestStatus::Passed,
+            failure: String::new(),
+            time_secs: None,
+            invocation: 0,
+        };
+        fail_missing_artifact(&mut passed);
+        assert_eq!(passed.cause(), Some(FailureCause::MissingArtifact));
+        let report = RunReport {
+            missing_artifacts: vec![Dimension::Bin],
+            verdicts: vec![passed],
+            ..RunReport::default()
+        };
+        let text = report.to_string();
+        assert!(text.contains("  bin: 1 tests, 0 passed, 1 failed, 0 skipped\n"), "{text}");
+        assert!(text.contains("  MISSING bin artifact"), "{text}");
+        assert!(text.contains("  FAIL [missing-artifact] [bin] Exe.Usage - no bin artifact"), "{text}");
+    }
+
+    #[test]
+    fn library_only_summary_has_no_type_tags() {
+        let report = RunReport {
+            verdicts: vec![TestVerdict {
+                name: "A.B".to_string(),
+                test_type: Dimension::Lib,
+                status: TestStatus::Failed(FailureCause::Signal { signal: 11 }),
+                failure: "process died on signal 11".to_string(),
+                time_secs: None,
+                invocation: 0,
+            }],
+            ..RunReport::default()
+        };
+        assert_eq!(
+            report.to_string(),
+            "total: 1 tests, 0 passed, 1 failed, 0 skipped\n  FAIL [signal] A.B - process died on signal 11\n"
+        );
     }
 
     #[test]

@@ -5,12 +5,13 @@ use std::process::ExitCode;
 
 use clap::{Parser, Subcommand};
 use harvest_bench::{
-    build_suite, default_event_line, is_test_dir, list_gtest_tests, load_manifest,
-    run_suite_streaming, verify_test_dir, Event, RunConfig, RunReport,
+    build_suite, default_event_line, is_test_dir, list_gtest_tests, load_program,
+    resolve_artifacts, run_suite_streaming, verify_test_dir, Artifacts, Event, RunConfig,
+    RunReport, Scratch,
 };
 
 #[derive(Parser)]
-#[command(name = "harvest-bench", version, about = "Runs a Harvest Bench GoogleTest suite against a shared library under test")]
+#[command(name = "harvest-bench", version, about = "Runs a Harvest Bench GoogleTest suite against a shared library and/or executable under test")]
 struct Cli {
     #[command(subcommand)]
     command: Cmd,
@@ -18,14 +19,21 @@ struct Cli {
 
 #[derive(Subcommand)]
 enum Cmd {
-    /// Build a suite against a given shared library and run it.
+    /// Build a suite against the given artifacts and run it.
+    ///
+    /// Give one artifact per dimension the suite's program declares. For a
+    /// program with both, omitting one runs the other's tests and records
+    /// the omitted artifact's tests as failed.
     Run {
         /// The suite directory (contains CMakeLists.txt and manifest.json).
         #[arg(long)]
         suite: PathBuf,
         /// The shared library under test.
         #[arg(long)]
-        lib: PathBuf,
+        lib: Option<PathBuf>,
+        /// The executable under test.
+        #[arg(long)]
+        bin: Option<PathBuf>,
         /// Build directory for the suite (default: <suite>/../build/gtest).
         #[arg(long)]
         build_dir: Option<PathBuf>,
@@ -36,7 +44,7 @@ enum Cmd {
         #[arg(long)]
         json: Option<PathBuf>,
     },
-    /// Build the reference C library of one or more test directories and run
+    /// Build the reference C program of one or more test directories and run
     /// each suite against it. Every test must pass.
     Verify {
         /// Test directories, or a directory that contains test directories.
@@ -48,16 +56,20 @@ enum Cmd {
         #[arg(long)]
         json: Option<PathBuf>,
     },
-    /// Run a suite once against a reference library and write a starting
+    /// Run a suite once against the reference artifacts and write a starting
     /// manifest.json with measured per-test baselines (case mode). Group
-    /// aggregate suites into `suite` entries by hand afterwards.
+    /// aggregate suites into `suite` entries by hand afterwards. The program
+    /// and test_types of an existing manifest are carried over.
     GenManifest {
         /// The suite directory.
         #[arg(long)]
         suite: PathBuf,
         /// The reference library (normally the C build).
         #[arg(long)]
-        lib: PathBuf,
+        lib: Option<PathBuf>,
+        /// The reference executable (normally the C build).
+        #[arg(long)]
+        bin: Option<PathBuf>,
         /// Build directory for the suite (default: <suite>/../build/gtest).
         #[arg(long)]
         build_dir: Option<PathBuf>,
@@ -93,7 +105,7 @@ fn write_json(path: &PathBuf, reports: &[(String, &RunReport)]) -> harvest_bench
 
 fn cmd_run(
     suite: PathBuf,
-    lib: PathBuf,
+    artifacts: Artifacts,
     build_dir: Option<PathBuf>,
     timeout: u64,
     json: Option<PathBuf>,
@@ -101,7 +113,7 @@ fn cmd_run(
     let config = RunConfig {
         build_dir: build_dir.unwrap_or_else(|| default_build_dir(&suite)),
         suite_dir: suite,
-        lib_path: lib,
+        artifacts,
         fallback_timeout: timeout,
     };
     let report = run_suite_streaming(&config, print_event)?;
@@ -162,7 +174,7 @@ fn cmd_verify(
 
 fn cmd_gen_manifest(
     suite: PathBuf,
-    lib: PathBuf,
+    artifacts: Artifacts,
     build_dir: Option<PathBuf>,
     out: Option<PathBuf>,
 ) -> harvest_bench::Result<bool> {
@@ -174,26 +186,32 @@ fn cmd_gen_manifest(
         )
         .into());
     }
-    if load_manifest(&suite)?.is_some() {
+    let (existing, program) = load_program(&suite)?;
+    if existing.is_some() {
         // Reachable only with --out; keep the measurement honest anyway.
         println!("note: the suite already has a manifest; measuring afresh");
     }
-
+    // The program, test types and note are authored, not measured: carry
+    // them over. Measuring needs every declared artifact.
+    let (declared, test_types, note) = match existing {
+        Some(m) => (m.program, m.test_types, m.note),
+        None => (None, Vec::new(), None),
+    };
     let build_dir = build_dir.unwrap_or_else(|| default_build_dir(&suite));
-    let bin = build_suite(&suite, &lib, &build_dir)?;
-    let ld = lib
-        .canonicalize()
-        .unwrap_or_else(|_| lib.clone())
-        .parent()
-        .map(|p| p.to_string_lossy().into_owned())
-        .unwrap_or_default();
+    let artifacts = resolve_artifacts(&artifacts, &program, false)?;
+
+    let bin = build_suite(&suite, &artifacts.given, &program, &build_dir)?;
+    let ld = artifacts.ld_library_path();
     let tests = list_gtest_tests(&bin, &ld)?;
 
-    // One process, whole suite, JSON timings.
+    // One process, whole suite, JSON timings. Tests of the executable put
+    // their working directories under the scratch directory.
     let json_path = build_dir.join("gen_manifest_report.json");
+    let scratch = Scratch::create(&build_dir)?;
     let _ = std::fs::remove_file(&json_path);
     let status = std::process::Command::new(&bin)
         .arg(format!("--gtest_output=json:{}", json_path.display()))
+        .env("HARVEST_TEST_TMPDIR", scratch.path())
         .env(
             if cfg!(target_os = "macos") {
                 "DYLD_LIBRARY_PATH"
@@ -204,6 +222,9 @@ fn cmd_gen_manifest(
         )
         .status()
         .map_err(|e| format!("failed to run suite: {}", e))?;
+    if let Err(e) = scratch.remove() {
+        println!("warning: {}", e);
+    }
     if !status.success() {
         println!(
             "note: the measurement run reported failures (status {:?}); baselines may be incomplete",
@@ -243,12 +264,20 @@ fn cmd_gen_manifest(
         tests.len()
     );
 
-    let manifest = serde_json::json!({
-        "version": 1,
+    let mut manifest = serde_json::json!({
         "default_factor": 3.0,
         "min_seconds": 10,
         "invocations": entries,
     });
+    if let Some(program) = declared {
+        manifest["program"] = serde_json::to_value(program)?;
+    }
+    if !test_types.is_empty() {
+        manifest["test_types"] = serde_json::to_value(test_types)?;
+    }
+    if let Some(note) = note {
+        manifest["note"] = note.into();
+    }
     std::fs::write(&out, serde_json::to_string_pretty(&manifest)? + "\n")?;
     println!("wrote {}", out.display());
     println!("hint: merge related entries into wildcard or suite-mode groups by hand");
@@ -261,10 +290,11 @@ fn main() -> ExitCode {
         Cmd::Run {
             suite,
             lib,
+            bin,
             build_dir,
             timeout,
             json,
-        } => cmd_run(suite, lib, build_dir, timeout, json),
+        } => cmd_run(suite, Artifacts { lib, bin }, build_dir, timeout, json),
         Cmd::Verify {
             paths,
             timeout,
@@ -273,9 +303,10 @@ fn main() -> ExitCode {
         Cmd::GenManifest {
             suite,
             lib,
+            bin,
             build_dir,
             out,
-        } => cmd_gen_manifest(suite, lib, build_dir, out),
+        } => cmd_gen_manifest(suite, Artifacts { lib, bin }, build_dir, out),
     };
     match result {
         Ok(true) => ExitCode::SUCCESS,
