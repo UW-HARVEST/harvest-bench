@@ -15,9 +15,9 @@ extern "C" void harvest_environment_end(void);
 // Declare the directory before the interpreter, so Tcl closes files first.
 struct Directory {
   std::filesystem::path saved=std::filesystem::current_path(), path;
-  Directory(){
-    char pattern[]="/tmp/harvest-sqlite-XXXXXX";
-    char *p=mkdtemp(pattern);
+  explicit Directory(const std::string &base="/tmp"){
+    std::string pattern=base+"/harvest-sqlite-XXXXXX";
+    char *p=mkdtemp(pattern.data());
     if(!p)throw std::runtime_error("mkdtemp failed");
     path=p;std::filesystem::current_path(path);
   }

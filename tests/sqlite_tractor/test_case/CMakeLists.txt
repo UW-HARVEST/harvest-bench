@@ -14,12 +14,13 @@ set(CMAKE_C_EXTENSIONS ON)
 # Build options
 #
 option(SQLITE_BUILD_SHARED                "Build libsqlite3.so"                      ON)
-option(SQLITE_BUILD_CLI                   "Build the sqlite3 CLI shell"              OFF)
+option(SQLITE_BUILD_CLI                   "Build the sqlite3 CLI shell"              ON)
 option(SQLITE_BUILD_DYNAMIC_EXTENSIONS    "Build the sqlite loadable extensions"     OFF)
 option(SQLITE_TEST                        "Build Tcl/test integration code"          OFF)
 option(SQLITE_ENABLE_MALLOC               "Use system malloc"                        ON)
 option(SQLITE_WITH_ZLIB                   "Enable zlib (.archive, zipfile, sqlar)"   ON)
 option(SQLITE_WITH_EDITLINE               "CLI line editing via BSD editline"        OFF)
+option(SQLITE_SHELL_ENABLE_RECOVER        "Build the CLI .recover command"           ON)
 option(SQLITE_ENABLE_DEBUG                "Enable assert statements (slow)"          OFF)
 
 # lib-features: extensions and core feature toggles

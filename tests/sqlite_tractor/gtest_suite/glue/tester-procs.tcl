@@ -1763,13 +1763,13 @@ proc test_find_binary {nm} {
 }
 
 proc test_find_cli {} {
-  set prog [test_find_binary sqlite3]
+  set prog [test_find_binary $::harvest_bin_name]
   if {$prog==""} { return -code return }
   return $prog
 }
 
 proc test_cli_invocation {} {
-  set prog [test_find_binary sqlite3]
+  set prog [test_find_binary $::harvest_bin_name]
   if {$prog==""} { return -code return }
   set vgrun [expr {[permutation]=="valgrind"}]
   if {$vgrun || [info exists ::env(SQLITE_CLI_VALGRIND_OPT)]} {

@@ -3,7 +3,10 @@
 Executable tests run the program's executable and check its output, exit
 status, and the files that it writes. They use the helper
 `runner/support/harvest_bin.h`. For how a program declares its executable,
-see [programs.md](programs.md).
+see [programs.md](programs.md). A suite that runs an upstream test harness
+can let that harness start the executable instead, if the suite gives it the
+same name, working directory and fixed environment (`sqlite_tractor` does
+this in `gtest_suite/glue/cli.h`).
 
 ## Setup
 

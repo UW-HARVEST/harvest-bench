@@ -1,6 +1,21 @@
 {
   "default_factor": 3.0,
   "min_seconds": 10,
+  "program": {
+    "lib": {
+      "c_target": "sqlite3_shared"
+    },
+    "bin": {
+      "c_target": "sqlite3_cli",
+      "name": "sqlite3"
+    }
+  },
+  "test_types": [
+    {
+      "type": "bin",
+      "filter": "SqliteTractorCli.*"
+    }
+  ],
   "invocations": [
     {
       "mode": "case",
@@ -5941,6 +5956,12 @@
       "mode": "case",
       "filter": "SqliteTractor.Replay/test_without_rowid7",
       "budget": 0.1
+    },
+    {
+      "mode": "case",
+      "filter": "SqliteTractorCli.*",
+      "budget": 2.1,
+      "note": "one process per CLI scene; budget is the slowest scene (test_shell8, 2 s sleep); all grant the 10 s minimum"
     }
   ]
 }
